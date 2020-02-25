@@ -7,10 +7,12 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby";
+import "../css/output.css";
+import "../css/layout.css"
 
-import Header from "./header"
-import "./layout.css"
+import HeaderBlock from '../components/HeaderBlock'
+import MobileView from '../components/MobileView'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,23 +26,20 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+      <>
+          <div class="w-full h-16 bg-red-600 fixed inset-0 z-50"></div>
+
+     <div class="lg:block mt-10">
+     <HeaderBlock />
+     <HeaderBlock />
+
+     <HeaderBlock />
+
+     </div>
+     <div class="lg:hidden sm: block">
+     <MobileView />
+     </div>
+     </>
   )
 }
 
