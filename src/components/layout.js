@@ -27,14 +27,10 @@ const Layout = ({ children }) => {
 
   return (
       <>
-          <div class="w-full h-16 bg-red-600 fixed inset-0 z-50"></div>
+          <div class="w-full h-16 bg-red-600 fixed inset-0 z-50 lg:block sm: hidden"></div>
 
-     <div class="lg:block mt-10">
+     <div class="lg:block sm: hidden mt-10">
      <HeaderBlock />
-     <HeaderBlock />
-
-     <HeaderBlock />
-
      </div>
      <div class="lg:hidden sm: block">
      <MobileView />
