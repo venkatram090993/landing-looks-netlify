@@ -8,10 +8,104 @@ import image2 from "../images/image-2-tr7.png"
 import image3 from "../images/image-3-tr4.png"
 import image4 from "../images/pretty-3.jpg"
 
+import sliderOneImageOne from "../images/slider1-1.png"
+import sliderOneImageTwo from "../images/slider1-2.png"
+import sliderOneImageThree from "../images/slider1-3.png"
+
+import sliderTwoImageOne from "../images/slider2-1.png"
+import sliderTwoImageTwo from "../images/slider2-2.png"
+import sliderTwoImageThree from "../images/slider2-3.png"
+
+import sliderThreeImageOne from "../images/slider3-1.png"
+import sliderThreeImageTwo from "../images/slider3-2.png"
+import sliderThreeImageThree from "../images/slider3-3.png"
+
+import sliderFourthImageOne from "../images/slider4-1.png"
+import sliderFourthImageTwo from "../images/slider4-2.png"
+import sliderFourthImageThree from "../images/slider4-3.png"
+
 import sendImg from "../images/plane.svg"
 import logo from "../images/logo.png"
 
 const SectionB = () => {
+
+
+    let i =0;
+    const SliderOneTimeOut = 5000;
+    const sliderOneImages = [ sliderOneImageTwo, sliderOneImageOne , sliderOneImageThree];
+
+    function changeSliderOne(){
+
+        document.sliderOne.src = sliderOneImages[i];
+
+        if(i < sliderOneImages.length - 1 ){
+            i++
+        }
+        else{
+            i = 0
+        }
+
+        setTimeout(()=>{changeSliderOne()}, SliderOneTimeOut)
+    }
+
+
+    const SliderTwoTimeOut = 4000;
+
+    const sliderTwoImages = [ sliderTwoImageOne, sliderTwoImageTwo , sliderTwoImageThree];
+
+    function changeSliderTwo (){
+
+        document.sliderTwo.src = sliderTwoImages[i]
+
+        if(i < sliderTwoImages.length -1 ){
+            i++
+        }else{
+            i=0
+        }
+
+        setTimeout(()=>{changeSliderTwo()},SliderTwoTimeOut )
+    }
+
+    const SliderThreeTimeOut = 3000;
+    const sliderThreeImages = [ sliderThreeImageOne, sliderThreeImageTwo , sliderThreeImageThree];
+
+    function changeSliderThree () {
+
+        document.sliderThree.src = sliderThreeImages[i]
+
+        if ( i < sliderThreeImages.length - 1){
+            i++
+        }
+
+        else{
+            i=0
+        }
+
+        setTimeout(()=>{changeSliderThree()}, SliderThreeTimeOut)
+
+
+    }
+
+    const SliderFourthTimeOut = 7000;
+    const sliderFourthImages = [sliderFourthImageOne, sliderFourthImageTwo , sliderFourthImageThree]
+
+
+    function changeSliderFourth() {
+        
+        document.sliderFour.src = sliderFourthImages[i];
+
+        if (i < sliderFourthImages.length -1 ){
+            i++
+        }
+        else{
+            i = 0;
+        }
+
+        setTimeout(()=>{changeSliderFourth()}, SliderFourthTimeOut )
+
+    }
+
+
 
     let AOS;
   useEffect(() => {
@@ -25,6 +119,11 @@ const SectionB = () => {
     if (AOS) {
       AOS.refresh();
     }
+
+    changeSliderOne();
+    changeSliderTwo();
+    changeSliderThree();
+    changeSliderFourth();
   });
 
   return (
@@ -33,7 +132,7 @@ const SectionB = () => {
         <div class="flex flex-row w-full">
           <div class="w-3/12 lg:block md:hidden sm: hidden">
             <img
-              src={image3}
+              name="sliderThree"
               class="h-screen w-full"
               alt="prettyGirl-1"
               data-aos="zoom-in"
@@ -44,7 +143,7 @@ const SectionB = () => {
 
           <div class="lg:w-3/12 lg:block md:block md:w-1/2 sm: hidden">
             <img
-              src={image2}
+              name="sliderOne"
               class="h-screen w-full"
               alt="prettyGirl-1"
               data-aos="zoom-in"
@@ -56,7 +155,7 @@ const SectionB = () => {
           
           <div class="lg:w-3/12 lg:block md:block md:w-1/2 sm: hidden">
             <img
-              src={image1}
+              name="sliderTwo"
               class="h-screen w-full"
               alt="prettyGirl-1"
               data-aos="zoom-in"
@@ -68,7 +167,7 @@ const SectionB = () => {
 
           <div class="lg:w-3/12 lg:block md:hidden md:w-1/2 sm: hidden">
             <img
-              src={image4}
+              name="sliderFour"
               class="lg:h-screen lg:w-screen md:w-screen sm: h-screen sm: w-full"
               alt="prettyGirl-1"
               data-aos="zoom-in"
