@@ -625,11 +625,11 @@ pre tt:after {
 .lead-gen-div{
     
     position:absolute;
-     top:500px;
-      left:120px;
-      color:"white"
+    top:65%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    
 }
-
 
 @media screen and (max-width: 1440px){
     .lead-gen-div{

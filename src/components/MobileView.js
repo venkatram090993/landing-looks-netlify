@@ -39,7 +39,7 @@ const MobileView = () =>{
             />
           </div>
 
-          <div
+             <div
             class="lg:w-4/12 sm: w-6/12 lead-gen-div"
             data-aos="zoom-out"
             data-aos-duration="1200"
@@ -52,7 +52,7 @@ const MobileView = () =>{
               Short tryhaul, quick tutorials and more.
             </p>
             <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
-              <input class="lg:w-1/2 lg:rounded-tl-full h-10 p-2 text-black sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md" />
+              <input class="lg:w-1/2 lg:rounded-tl-full h-10 p-2 text-black sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md" autoFocus />
               <div
                 onClick={() => {
                   alert("Thanks")
