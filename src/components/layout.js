@@ -11,8 +11,10 @@ import { useStaticQuery, graphql } from "gatsby";
 import "../css/output.css";
 import "../css/layout.css"
 
-import HeaderBlock from '../components/HeaderBlock'
-import MobileView from '../components/MobileView'
+// import HeaderBlock from './HeaderBlock'
+import MobileView from './MobileView'
+import SectionB from "./SectionB"
+import Footer from "./Layout/Footer"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -29,14 +31,13 @@ const Layout = ({ children }) => {
       <>
           {/* <div class="w-full h-16 bg-red-600 fixed inset-0 z-50 lg:block sm: hidden"></div> */}
 
-     <div class="lg:block sm: hidden mt-10">
-     <HeaderBlock />
+     <div class="lg:block md:block sm: hidden mt-10">
+     <SectionB />
      </div>
-     <div class="lg:hidden sm: block">
+     <div class="lg:hidden sm:hidden xs: block ">
      <MobileView />
      </div>
-
-     <div class="w-full h-16 bg-black z-50 lg:block sm: hidden"></div>
+    <Footer />
      </>
   )
 }

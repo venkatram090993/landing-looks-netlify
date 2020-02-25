@@ -625,7 +625,7 @@ pre tt:after {
 .lead-gen-div{
     
     position:absolute;
-    top:65%;
+    top:62%;
     left:50%;
     transform: translate(-50%,-50%);
     
@@ -635,9 +635,9 @@ pre tt:after {
     .lead-gen-div{
     
         position:absolute;
-         top:340px;
-          left:75px;
-          color:"white"
+        top:62%;
+        left:50%;
+        transform: translate(-50%,-50%);
     }
     
 
@@ -645,11 +645,10 @@ pre tt:after {
 
 @media screen and (max-width: 1024px){
     .lead-gen-div{
-    
         position:absolute;
-         top:270px;
-          left:60px;
-          color:"white"
+        top:62%;
+        left:50%;
+        transform: translate(-50%,-50%);
     }
     
 
@@ -660,13 +659,12 @@ pre tt:after {
     .lead-gen-div{
         background: rgba(0,0,0,0.5);   
         position:absolute;
-         top:225px;
-          left:195px;
-          color:"white";
-          padding:10px;
-          text-align: center;
-          margin: auto;
-          height: 300px;
+        top:62%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width:50%;
+        height: 32%;
+        padding:5px;
     }
     
 
@@ -678,15 +676,13 @@ pre tt:after {
     .lead-gen-div{
         background: rgba(0,0,0,0.5);    
         position:absolute;
-         bottom:5px;
-          left:50px;
-          color:"white";
-          padding:10px;
-          width:330px;
-          height: 300px;
-          display: flex;
-          flex-direction: column ;
-          text-align: center;
+        top:50%;
+        left:10%;
+        transform: translate(-50%,-50%);
+        width:80%;
+        height: 40%;
+        padding:5px;
+        box-sizing: border-box;
     }
     
 
@@ -698,15 +694,16 @@ pre tt:after {
     .lead-gen-div{
         background: rgba(0,0,0,0.5);    
         position:absolute;
-         bottom:10px;
-          left:22.5px;
-          color:"white";
-          padding:10px;
-          width:330px;
-          height: 300px;
-          display: flex;
-          flex-direction: column ;
-          text-align: center;
+        top:50%;
+        left:10%;
+        transform: translate(-50%,-50%);
+        width:80%;
+        height: 40%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
     }
     
 
