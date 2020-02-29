@@ -56,11 +56,16 @@ const SectionB = () => {
   const lazyDatabase = import('firebase/firestore')
 
   Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-    const database = getFirebase(firebase).firestore()
+    const database = getFirebase(firebase).firestore();
+
   })
-  },[])
 
 
+  })
+
+  
+  const lazyApp = import('firebase/app')
+  const lazyDatabase = import('firebase/firestore')
 
 
 
@@ -79,6 +84,13 @@ const SectionB = () => {
     // let ref = firebase.firestore().collection("users").ref;
 
     // console.log(ref);
+
+  
+    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+      const database = getFirebase(firebase).firestore();
+      database.collection("users").add({emailID:email})
+    })
+
     
     navigate("/thankYouPage")
     } else {
