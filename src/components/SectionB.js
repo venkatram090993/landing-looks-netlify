@@ -12,14 +12,16 @@ import ImageSliderThree from './Layout/ImageSliders/ImageSliderThree';
 import ImageSliderFour from './Layout/ImageSliders/ImageSliderFour';
 
 
-import firebase from '../firebase'
+import getFirebase from '../firebase'
+
+
+
 
 import { navigate } from "gatsby"
 
 const SectionB = () => {
 
-
-  // Counter increment Function
+ // Counter increment Function
   // let count
   // useEffect(()=>{
 
@@ -48,6 +50,16 @@ const SectionB = () => {
 
   // })
 
+  useEffect(()=>{
+
+    const lazyApp = import('firebase/app')
+  const lazyDatabase = import('firebase/firestore')
+
+  Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+    const database = getFirebase(firebase).firestore()
+  })
+  },[])
+
 
 
 
@@ -64,7 +76,10 @@ const SectionB = () => {
     let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 
    if(email!= "" && (regex.test(email))){
-    firebase.firestore().collection("users").add({emailId: email})
+    // let ref = firebase.firestore().collection("users").ref;
+
+    // console.log(ref);
+    
     navigate("/thankYouPage")
     } else {
       console.log("invalid")
