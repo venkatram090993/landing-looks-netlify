@@ -4,7 +4,7 @@ const Footer = () =>{
 
     return(
 
-        <div class=" flex lg:flex-row md:flex-row sm: flex-col sm: justify-center w-full h-auto bg-black md:justify-between">
+        <div class=" flex lg:flex-row md:flex-row sm: flex-col sm: justify-center w-full h-auto bg-black md:justify-between lg:py-5">
             <div class="lg:w-3/12 lg:block md:w-1/12 flex bg-black h-full "></div>
 
             <div class="lg:w-6/12 h-full flex lg:flex-row md:flex-row text-gray-200 md:justify-between sm: flex-col sm: align-middle ">

@@ -680,7 +680,7 @@ pre tt:after {
         left:10%;
         transform: translate(-50%,-50%);
         width:80%;
-        height: 40%;
+        height: 44%;
         padding:5px;
         box-sizing: border-box;
     }
@@ -708,5 +708,142 @@ pre tt:after {
     
 
     
+
+}
+
+
+
+/* second draft */
+
+.alertBox{
+    
+    position:absolute;
+    top:55%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    
+}
+
+@media screen and (max-width: 1440px){
+    .alertBox{
+    
+        position:absolute;
+        top:40%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+    
+
+}
+
+@media screen and (max-width: 1024px){
+    .alertBox{
+        position:absolute;
+        top:40%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+    
+
+}
+
+
+@media screen and (max-width: 768px){
+    .alertBox{
+       position:absolute;
+        top:40%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 425px){
+    .alertBox{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:50%;
+        left:10%;
+        transform: translate(-50%,-50%);
+        width:80%;
+        height: 44%;
+        padding:5px;
+        box-sizing: border-box;
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 375px){
+    .alertBox{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:50%;
+        left:10%;
+        transform: translate(-50%,-50%);
+        width:80%;
+        height: 40%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
+    }
+    
+
+    
+
+}
+
+
+/* second */
+
+
+.thankYouBottom{
+    background-color: purple;
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+
+}
+
+.thanks-div{
+    
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-69%);
+    
+}
+
+@media screen and (max-width:475px){
+
+    .thankYouBottom{
+        height: 700px;
+        background-color: purple;
+        clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    
+    }
+    
+}
+
+.button{
+    position:absolute;
+    top:85%;
+    left:50%;
+    transform: translate(-50%,-69%);
+}
+
+@media screen and (max-width:425px){
+ 
+    .button{
+        position:absolute;
+        top:80%;
+        left:50%;
+        transform: translate(-50%,-69%);
+    }
 
 }

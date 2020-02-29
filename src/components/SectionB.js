@@ -1,207 +1,192 @@
-import React, {useEffect} from "react"
+import React, { useEffect, useState } from "react"
 import "../css/layout.css"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
-import image1 from "../images/image-tr3.png"
-import image2 from "../images/image-2-tr7.png"
-import image3 from "../images/image-3-tr4.png"
-import image4 from "../images/pretty-3.jpg"
-
-import sliderOneImageOne from "../images/slider1-1.png"
-import sliderOneImageTwo from "../images/slider1-2.png"
-import sliderOneImageThree from "../images/slider1-3.png"
-
-import sliderTwoImageOne from "../images/slider2-1.png"
-import sliderTwoImageTwo from "../images/slider2-2.png"
-import sliderTwoImageThree from "../images/slider2-3.png"
-
-import sliderThreeImageOne from "../images/slider3-1.png"
-import sliderThreeImageTwo from "../images/slider3-2.png"
-import sliderThreeImageThree from "../images/slider3-3.png"
-
-import sliderFourthImageOne from "../images/slider4-1.png"
-import sliderFourthImageTwo from "../images/slider4-2.png"
-import sliderFourthImageThree from "../images/slider4-3.png"
-
 import sendImg from "../images/plane.svg"
 import logo from "../images/logo.png"
+
+import ImageSliderOne from './Layout/ImageSliders/ImageSliderOne'
+import ImageSliderTwo from './Layout/ImageSliders/ImageSliderTwo';
+import ImageSliderThree from './Layout/ImageSliders/ImageSliderThree';
+import ImageSliderFour from './Layout/ImageSliders/ImageSliderFour';
+
+
+import firebase from '../firebase'
+
+import { navigate } from "gatsby"
 
 const SectionB = () => {
 
 
-    let i =0;
-    const SliderOneTimeOut = 5000;
-    const sliderOneImages = [ sliderOneImageTwo, sliderOneImageOne , sliderOneImageThree];
+  // Counter increment Function
+  // let count
+  // useEffect(()=>{
 
-    function changeSliderOne(){
+  //  count = document.getElementById("count").innerHTML;
 
-        document.sliderOne.src = sliderOneImages[i];
+  //  let temp = count - 500;
 
-        if(i < sliderOneImages.length - 1 ){
-            i++
-        }
-        else{
-            i = 0
-        }
+  // function counter(){
 
-        setTimeout(()=>{changeSliderOne()}, SliderOneTimeOut)
+  //     if(temp < count){
+
+  //         setTimeout(()=>{
+  //         document.getElementById("count").innerHTML = temp;
+  //         temp += 11;
+  //         counter()
+  //         }, 20)
+
+  //     }
+  //     else{
+  //             document.getElementById("count").innerHTML = count;
+  //     }
+
+  //  }
+
+  //  counter()
+
+  // })
+
+
+
+
+
+
+  const [email, setEmail] = useState("")
+  const [emailError, setEmailError] = useState(false);
+
+
+
+  const validateAndCheckOut = () => {
+    const emailValue = email
+
+    let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+
+   if(email!= "" && (regex.test(email))){
+    firebase.firestore().collection("users").add({emailId: email})
+    navigate("/thankYouPage")
+    } else {
+      console.log("invalid")
+      setEmailError(true)
+      setTimeout(() => {
+        setEmailError(false)
+      }, 2000)
     }
+  }
+
+  let alertBox = null
+
+  if (emailError) {
+    alertBox = (
 
 
-    const SliderTwoTimeOut = 4000;
-
-    const sliderTwoImages = [ sliderTwoImageOne, sliderTwoImageTwo , sliderTwoImageThree];
-
-    function changeSliderTwo (){
-
-        document.sliderTwo.src = sliderTwoImages[i]
-
-        if(i < sliderTwoImages.length -1 ){
-            i++
-        }else{
-            i=0
-        }
-
-        setTimeout(()=>{changeSliderTwo()},SliderTwoTimeOut )
-    }
-
-    const SliderThreeTimeOut = 3000;
-    const sliderThreeImages = [ sliderThreeImageOne, sliderThreeImageTwo , sliderThreeImageThree];
-
-    function changeSliderThree () {
-
-        document.sliderThree.src = sliderThreeImages[i]
-
-        if ( i < sliderThreeImages.length - 1){
-            i++
-        }
-
-        else{
-            i=0
-        }
-
-        setTimeout(()=>{changeSliderThree()}, SliderThreeTimeOut)
-
-
-    }
-
-    const SliderFourthTimeOut = 7000;
-    const sliderFourthImages = [sliderFourthImageOne, sliderFourthImageTwo , sliderFourthImageThree]
-
-
-    function changeSliderFourth() {
-        
-        document.sliderFour.src = sliderFourthImages[i];
-
-        if (i < sliderFourthImages.length -1 ){
-            i++
-        }
-        else{
-            i = 0;
-        }
-
-        setTimeout(()=>{changeSliderFourth()}, SliderFourthTimeOut )
-
-    }
+        <div class="bg-indigo-900 text-center py-3 lg:px-4  z-20 alertBox">
+  <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+    <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
+    <span class="font-semibold mr-2 text-left flex-auto">Get the coolest t-shirts from our brand new store</span>
+    <div  class=" cursor-pointer px-2 py-1" onClick={() => {
+              setEmailError(false)
+            }}>X</div>
+  </div>
+</div>
 
 
 
-    let AOS;
-  useEffect(() => {
-    const AOS = require("aos");
-    AOS.init({
-      once: true,
-    });
-  }, []);
-
-  useEffect(() => {
-    if (AOS) {
-      AOS.refresh();
-    }
-
-    changeSliderOne();
-    changeSliderTwo();
-    changeSliderThree();
-    changeSliderFourth();
-  });
+    //   <div
+    //     class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-600 px-4 py-3 shadow-md z-20 alertBox"
+    //     role="alert"
+    //   >
+    //     <div class="flex">
+    //       <div
+    //         class="absolute inset-0 flex  h-4 w-4 justify-end ml-1 mt-1 pl-64 cursor-pointer"
+    //         onClick={() => {
+    //           setEmailError(false)
+    //         }}
+    //       >
+    //         X
+    //       </div>
+    //       <div class="py-4">
+    //         <svg
+    //           class="fill-current h-6 w-6 text-red-500 mr-4"
+    //           xmlns="http://www.w3.org/2000/svg"
+    //           viewBox="0 0 20 20"
+    //         >
+    //           <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+    //         </svg>
+    //       </div>
+    //       <div>
+    //         <p class="mt-4">Please enter a valid email ID</p>
+    //       </div>
+    //     </div>
+    //   </div>
+    )
+  }
 
   return (
-    <div class="lg:h-screen lg:leading-normal overflow-y-hidden sm: w-full sm: h-screen bg-red-800" >
+    <div class="lg:h-screen lg:leading-normal overflow-y-hidden sm: w-full sm: h-screen bg-black font-sans">
       <div class="flex flex-col">
-        <div class="flex flex-row w-full">
-          <div class="w-3/12 lg:block md:hidden sm: hidden">
-            <img
-              name="sliderThree"
-              class="h-screen w-full"
-              alt="prettyGirl-1"
-              data-aos="zoom-in"
-              data-aos-duration="1200"
-              data-aos-delay="300"
-            />
-          </div>
+        <div class="flex flex-row w-full h-screen">
+        
+            {alertBox}
+          <ImageSliderOne />
 
-          <div class="lg:w-3/12 lg:block md:block md:w-1/2 sm: hidden">
-            <img
-              name="sliderOne"
-              class="h-screen w-full"
-              alt="prettyGirl-1"
-              data-aos="zoom-in"
-              data-aos-duration="1200"
-              data-aos-delay="300"
-            />
-          </div>
+          <ImageSliderTwo />
 
-          
-          <div class="lg:w-3/12 lg:block md:block md:w-1/2 sm: hidden">
-            <img
-              name="sliderTwo"
-              class="h-screen w-full"
-              alt="prettyGirl-1"
-              data-aos="zoom-in"
-              data-aos-duration="1200"
-              data-aos-delay="300"
-            />
-          </div>
+          <ImageSliderThree />
 
+          <ImageSliderFour />        
 
-          <div class="lg:w-3/12 lg:block md:hidden md:w-1/2 sm: hidden">
-            <img
-              name="sliderFour"
-              class="lg:h-screen lg:w-screen md:w-screen sm: h-screen sm: w-full"
-              alt="prettyGirl-1"
-              data-aos="zoom-in"
-              data-aos-duration="1700"
-              data-aos-delay="300"
-            />
-          </div>
-
-          <div
-            class="lg:w-5/12 sm: w-6/12 lead-gen-div"
-            
-          >
-            <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center">
-              <span class="sm: font-bold lg:font-bold text-green-500">Looks</span>, a sassy new way to fashion vlog.
+          <div class="lg:w-6/12 sm: w-6/12 p-10 rounded-lg lead-gen-div">
+            <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+              <span class="sm: font-bold lg:font-bold text-green-600">
+                Looks
+              </span>
+              , luxury fashion vlog.
             </p>
-            <p class="lg:text-xl leading-normal text-white sm: text-xl lg:mt-2 sm: mt-3 md:mt-2 text-center">
-              Short tryhaul, quick tutorials and more.
+            <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+              Tryhaul, style tips and more.
             </p>
-            <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
-              <input class="lg:w-1/2 lg:rounded-none h-10 p-2 text-black sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md" />
-              <div
-                onClick={() => {
-                  alert("Thanks")
-                }}
-                style={{ background: "#19328C" }}
-                class=" cursor-pointer lg:m-0 lg:w-6/12 lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
-              >
-                <img src={sendImg} class="w-8 mr-2" />
-                <p class="lg:text-base pr-2 text-white">Get early access</p>
+            <form onSubmit={(e)=>{
+                e.preventDefault();
+                validateAndCheckOut()
+
+            }}>
+              <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
+                <input
+                  type="email"
+                  placeholder="Join Other Girls"
+                  class="lg:w-1/2 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
+                 
+                  onChange={event => {
+                    setEmail(event.target.value)
+                    console.log(email)
+                  }}
+                  onClick={() => {
+                    setEmailError(false);
+                  }}
+                />
+
+                <div
+                  onClick={() => {
+                    validateAndCheckOut();
+                  }}
+                  style={{ background: "#19328C" }}
+                  class=" cursor-pointer lg:m-0 lg:w-6/12 lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
+                >
+                  <img src={sendImg} class="w-8 mr-2" />
+                  <p class="lg:text-base pr-2 text-white">Get early access</p>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
+
+          {/* <div class="w-64 h-64 bg-blue-700 absolute">
+              
+              <p id="count">2000</p><p>Users have registered already. Register Now!</p>
+          </div> */}
         </div>
-      </div>
+      </div>    
     </div>
   )
 }
