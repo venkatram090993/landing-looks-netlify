@@ -18,14 +18,14 @@ import {
 import AOS from "aos"
 import "aos/dist/aos.css"
 
-const ThankYouPage = ({location}) => {
-
-console.log('loc',location.state.refId)
-
-const referralId = location.state.refId
+const ThankYouPage = ({ location }) => {
+  console.log("loc", location.state.refId)
+  const referralId = location.state.refId
 
   const [copySuccess, setCopySuccess] = useState("")
-  const textAreaRef = useRef(null);
+  const textAreaRef = useRef(null)
+
+const shareUrl = "http://looks.surge.sh/"+referralId
 
   function copyToClipboard(e) {
     textAreaRef.current.select()
@@ -87,10 +87,28 @@ const referralId = location.state.refId
               </div>
             </form>
           </div>
-          <div class="flex flex-row w-1/2 m-auto justify-between py-5 lg:py-0 mt-5 lg:mt-1">
-            <img src={whatsappImg} class="lg:w-1/12 sm: w-3/12" />
-            <img src={twitterImg} class="lg:w-1/12 sm: w-3/12" />
-            <img src={facebookImg} class="lg:w-1/12 sm: w-3/12" />
+          <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
+            <WhatsappShareButton
+              class="lg:w-2/12 sm: w-3/12"
+              url={shareUrl}
+            >
+              <WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton>
+            <TwitterShareButton
+              class="lg:w-2/12 sm: w-3/12"
+              url={shareUrl}
+            >
+              <TwitterIcon size={32} round={true} />
+            </TwitterShareButton>
+            <FacebookShareButton
+              class="lg:w-2/12 sm: w-3/12"
+              url={shareUrl}
+            >
+              <FacebookIcon size={32} round={true} />
+            </FacebookShareButton>
+            {/* <img src={whatsappImg} class="lg:w-2/12 sm: w-3/12" />
+            <img src={twitterImg} class="lg:w-2/12 sm: w-3/12" />
+            <img src={facebookImg} class="lg:w-2/12 sm: w-3/12" /> */}
           </div>
         </div>
       </div>
