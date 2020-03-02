@@ -64,7 +64,7 @@ let SliderOneTimeOut = 7000
     <img
       src={sliderOneImages}
       name="sliderOne"
-      class="w-full lg:h-screen  xl:h-auto md:h-screen"
+      class="w-full lg:h-screen xl:h-screen md:h-screen"
       alt="prettyGirl-1"
       data-aos="zoom-in"
       data-aos-duration="1200"

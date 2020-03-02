@@ -48,11 +48,11 @@ const ImageSliderTwo = () => {
   }
 
   return (
-    <div class="lg:w-3/12 lg:block md:block md:w-1/2 sm: hidden">
+    <div class="lg:w-3/12 lg:blocks md:block md:w-1/2 sm: hidden">
       <img
         src={sliderTwoImageTwo}
         name="sliderTwo"
-        class="w-full lg:h-screen  xl:h-auto md:h-screen"
+        class="w-full lg:h-screen xl:h-screen md:h-screen"
         alt="prettyGirl-1"
         data-aos="zoom-in"
         data-aos-duration="1200"

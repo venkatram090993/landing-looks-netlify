@@ -45,6 +45,32 @@ const SectionB = () => {
 
   // })
 
+  const [caseID, setCaseID] = useState("");
+    
+  useEffect(()=>{
+
+    const myStorage = window.localStorage;
+    const caseIDFromLocalStorage = myStorage.getItem("caseID");
+
+
+
+
+    if(caseIDFromLocalStorage == null){
+
+        const caseIDValue = (Math.floor(Math.random() * 2));
+
+        myStorage.setItem("caseID",caseIDValue);
+       
+        setCaseID(caseIDValue);
+
+
+    } else{
+
+        setCaseID(caseIDFromLocalStorage);
+
+    }
+  }, [])
+
   useEffect(() => {
     const lazyApp = import("firebase/app")
     const lazyDatabase = import("firebase/firestore")
@@ -52,9 +78,6 @@ const SectionB = () => {
     Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
       const database = getFirebase(firebase).firestore()
     })
-
-    console.log(Math.floor(Math.random() * 2))
-
     
   })
 
@@ -178,12 +201,53 @@ const SectionB = () => {
 
   )
 
+  if(caseID === 1){
+
+    descriptionBlock = (
+
+        <div>
+    <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+        <span class="sm: font-bold lg:font-bold text-green-600">
+          Looks
+        </span>
+        , luxury fashion vlog.
+      </p>
+      <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+        Tryhaul, style tips and more.
+      </p>
+    
+        </div>
+    
+      )
+
+
+  }else{
+
+    descriptionBlock = (
+
+        <div>
+    <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+        <span class="sm: font-bold lg:font-bold text-green-600">
+          Looks
+        </span>
+        , sassy new way to fashion vlog
+      </p>
+      <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+        Tryhaul, style tips and more.
+      </p>
+    
+        </div>
+    
+      )
+  }
+
+
 
 
 
   return (
-    <div class="lg:h-screen lg:leading-normal overflow-y-hidden sm: w-full sm: h-screen bg-black font-sans">
-      <div class="flex flex-col">
+    <div class="h-screen lg:leading-normal sm: w-full bg-black font-sans">
+      <div class="flex flex-col h-screen">
         <div class="flex flex-row w-full h-screen">
           {alertBox}
 
@@ -195,8 +259,8 @@ const SectionB = () => {
 
           <ImageSliderFour />
 
-          <div class="lg:w-6/12 sm: w-6/12 p-10 rounded-lg lead-gen-div">
-          {descriptionBlock}
+          <div class="lg:w-7/12 sm: w-6/12 p-10 rounded-lg lead-gen-div">
+       {descriptionBlock}
             <form
               onSubmit={e => {
                 e.preventDefault()
@@ -206,7 +270,7 @@ const SectionB = () => {
               <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
                 <input
                   type="email"
-                  placeholder="Join Other Girls"
+                  placeholder="E-mail ID"
                   class="lg:w-1/2 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
                   onChange={event => {
                     setEmail(event.target.value)

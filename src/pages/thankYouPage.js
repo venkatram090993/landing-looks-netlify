@@ -100,22 +100,22 @@ const ThankYouPage = ({ location }) => {
           </div>
           <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
             <WhatsappShareButton
-              class="lg:w-2/12 sm: w-3/12"
+              class="lg:w-full sm: w-3/12"
               url={url}
             >
-              <WhatsappIcon size={32} round={true} />
+              <WhatsappIcon size={50} round={true} />
             </WhatsappShareButton>
             <TwitterShareButton
-              class="lg:w-2/12 sm: w-3/12"
+              class="lg:w-full sm: w-3/12"
               url={url}
             >
-              <TwitterIcon size={32} round={true} />
+              <TwitterIcon size={50} round={true} />
             </TwitterShareButton>
             <FacebookShareButton
-              class="lg:w-2/12 sm: w-3/12"
+              class="lg:w-full sm: w-3/12"
               url={url}
             >
-              <FacebookIcon size={32} round={true} />
+              <FacebookIcon size={50} round={true} />
             </FacebookShareButton>
             {/* <img src={whatsappImg} class="lg:w-2/12 sm: w-3/12" />
             <img src={twitterImg} class="lg:w-2/12 sm: w-3/12" />
