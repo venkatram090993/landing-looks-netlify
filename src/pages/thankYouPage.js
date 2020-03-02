@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import Layout from "../components/layout"
 import "../css/layout.css"
 import bannerImg from "../images/banner-image.png"
@@ -19,12 +19,18 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 const ThankYouPage = ({ location }) => {
+  const [copySuccess, setCopySuccess] = useState("")
+  const [refId, setRefId] = useState("")
+  const [url,setUrl] = useState("http://looks.surge.sh/")
+  const textAreaRef = useRef(null)
+  let shareUrl = "http://looks.surge.sh/"
 
-//   console.log("loc", location.state.refId)
-  const referralId = "hi";
-
-//   const [copySuccess, setCopySuccess] = useState("")
-//   const textAreaRef = useRef(null)
+  useEffect(()=>{
+    const {state}= location;
+    shareUrl = "http://looks.surge.sh/"+state.refId;
+    setRefId(state.refId)
+    setUrl("http://looks.surge.sh?" + state.refId)
+  },[]);
 
 // const shareUrl = "http://looks.surge.sh/"+referralId
 
@@ -34,6 +40,10 @@ const ThankYouPage = ({ location }) => {
 //     e.target.focus()
 //     setCopySuccess("Copied!")
 //   }
+
+  if (typeof window === 'undefined') {
+    return<></>;
+  }
 
   return (
     <Layout>
@@ -72,8 +82,8 @@ const ThankYouPage = ({ location }) => {
               <div class="flex lg:flex-row mt-5 lg:w-4/6 sm: flex-col sm: w-5/6 sm: m-auto">
                 <input
                   class="lg:w-4/5 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
-                //   ref={textAreaRef}
-                  value={referralId}
+                  ref={textAreaRef}
+                  value={refId}
                 />
 
                 <div
@@ -91,19 +101,19 @@ const ThankYouPage = ({ location }) => {
           <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
             <WhatsappShareButton
               class="lg:w-2/12 sm: w-3/12"
-            //   url={shareUrl}
+              url={url}
             >
               <WhatsappIcon size={32} round={true} />
             </WhatsappShareButton>
             <TwitterShareButton
               class="lg:w-2/12 sm: w-3/12"
-            //   url={shareUrl}
+              url={url}
             >
               <TwitterIcon size={32} round={true} />
             </TwitterShareButton>
             <FacebookShareButton
               class="lg:w-2/12 sm: w-3/12"
-            //   url={shareUrl}
+              url={url}
             >
               <FacebookIcon size={32} round={true} />
             </FacebookShareButton>
