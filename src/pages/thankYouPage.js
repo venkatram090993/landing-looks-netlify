@@ -7,22 +7,29 @@ import twitterImg from "../images/twitter.svg"
 import facebookImg from "../images/facebook.svg"
 import { navigate } from "gatsby"
 import wreathImg from "../images/wreath.svg"
-
+import {
+  WhatsappIcon,
+  TwitterIcon,
+  FacebookIcon,
+  WhatsappShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+} from "react-share"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
-const ThankYouPage = ({location}) => {
-
-console.log('loc',location.state.refId)
-const referralId = location.state.refId
+const ThankYouPage = ({ location }) => {
+  console.log("loc", location.state.refId)
+  const referralId = location.state.refId
 
   const [copySuccess, setCopySuccess] = useState("")
   const textAreaRef = useRef(null)
+
+const shareUrl = "http://looks.surge.sh/"+referralId
+
   function copyToClipboard(e) {
     textAreaRef.current.select()
     document.execCommand("copy")
-    // This is just personal preference.
-    // I prefer to not show the the whole text area selected.
     e.target.focus()
     setCopySuccess("Copied!")
   }
@@ -81,9 +88,27 @@ const referralId = location.state.refId
             </form>
           </div>
           <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
-            <img src={whatsappImg} class="lg:w-2/12 sm: w-3/12" />
+            <WhatsappShareButton
+              class="lg:w-2/12 sm: w-3/12"
+              url={shareUrl}
+            >
+              <WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton>
+            <TwitterShareButton
+              class="lg:w-2/12 sm: w-3/12"
+              url={shareUrl}
+            >
+              <TwitterIcon size={32} round={true} />
+            </TwitterShareButton>
+            <FacebookShareButton
+              class="lg:w-2/12 sm: w-3/12"
+              url={shareUrl}
+            >
+              <FacebookIcon size={32} round={true} />
+            </FacebookShareButton>
+            {/* <img src={whatsappImg} class="lg:w-2/12 sm: w-3/12" />
             <img src={twitterImg} class="lg:w-2/12 sm: w-3/12" />
-            <img src={facebookImg} class="lg:w-2/12 sm: w-3/12" />
+            <img src={facebookImg} class="lg:w-2/12 sm: w-3/12" /> */}
           </div>
         </div>
       </div>
