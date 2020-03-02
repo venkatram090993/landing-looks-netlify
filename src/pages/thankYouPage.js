@@ -7,7 +7,14 @@ import twitterImg from "../images/twitter.svg"
 import facebookImg from "../images/facebook.svg"
 import { navigate } from "gatsby"
 import wreathImg from "../images/wreath.svg"
-
+import {
+  WhatsappIcon,
+  TwitterIcon,
+  FacebookIcon,
+  WhatsappShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+} from "react-share"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
@@ -23,8 +30,6 @@ const referralId = location.state.refId
   function copyToClipboard(e) {
     textAreaRef.current.select()
     document.execCommand("copy")
-    // This is just personal preference.
-    // I prefer to not show the the whole text area selected.
     e.target.focus()
     setCopySuccess("Copied!")
   }
