@@ -83,7 +83,11 @@ const SectionB = () => {
           .add({ emailID: email, referralId: referralId })
       })
 
-      navigate("/thankYouPage")
+      navigate("/thankYouPage",{
+        state:{
+          refId:referralId
+        }
+      })
     } else {
       console.log("invalid")
       setEmailError(true)
