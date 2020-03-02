@@ -21,6 +21,7 @@ import "aos/dist/aos.css"
 const ThankYouPage = ({ location }) => {
   const [copySuccess, setCopySuccess] = useState("")
   const [refId, setRefId] = useState("")
+  const [url,setUrl] = useState("http://looks.surge.sh/")
   const textAreaRef = useRef(null)
   let shareUrl = "http://looks.surge.sh/"
 
@@ -28,6 +29,7 @@ const ThankYouPage = ({ location }) => {
     const {state}= location;
     shareUrl = "http://looks.surge.sh/"+state.refId;
     setRefId(state.refId)
+    setUrl("http://looks.surge.sh?" + state.refId)
   },[]);
 
   function copyToClipboard(e) {
@@ -97,19 +99,19 @@ const ThankYouPage = ({ location }) => {
           <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
             <WhatsappShareButton
               class="lg:w-2/12 sm: w-3/12"
-              url={shareUrl}
+              url={url}
             >
               <WhatsappIcon size={32} round={true} />
             </WhatsappShareButton>
             <TwitterShareButton
               class="lg:w-2/12 sm: w-3/12"
-              url={shareUrl}
+              url={url}
             >
               <TwitterIcon size={32} round={true} />
             </TwitterShareButton>
             <FacebookShareButton
               class="lg:w-2/12 sm: w-3/12"
-              url={shareUrl}
+              url={url}
             >
               <FacebookIcon size={32} round={true} />
             </FacebookShareButton>
