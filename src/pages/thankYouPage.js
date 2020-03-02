@@ -14,10 +14,12 @@ import "aos/dist/aos.css"
 const ThankYouPage = ({location}) => {
 
 console.log('loc',location.state.refId)
+
 const referralId = location.state.refId
 
   const [copySuccess, setCopySuccess] = useState("")
-  const textAreaRef = useRef(null)
+  const textAreaRef = useRef(null);
+
   function copyToClipboard(e) {
     textAreaRef.current.select()
     document.execCommand("copy")
@@ -42,18 +44,18 @@ const referralId = location.state.refId
         </div>
 
         <div
-          class="py-8 flex flex-col justify-center text-white rounded-lg lg:w-2/6 sm: w-5/6 sm: px-2 m-auto thanks-div"
+          class="py-8 lg:py-4 flex flex-col justify-center text-white rounded-lg w-2/12 lg:w-4/6 sm: w-5/6 sm: px-2 m-auto thanks-div"
           style={{ background: "RGBA(0,0,0,0.8" }}
         >
-          <img src={wreathImg} class="w-3/12 m-auto" />
+          <img src={wreathImg} class="w-3/12 lg:w-2/12 m-auto" />
           <h1 class="text-center m-auto lg:text-5xl sm: text-3xl">
             Thank You.
           </h1>
-          <p class="text-center lg:text-xl sm: text-base py-5 text-green-400 font-semibold">
+          <p class="text-center lg:text-xl sm: text-base py-5 lg:py-1 text-green-400 font-semibold">
             You will now be among the first few to use Looks app.
           </p>
 
-          <p class="text-center lg:text-2xl lg:my-4 sm: text-sm">
+          <p class="text-center lg:text-2xl my-4 lg:my-2 sm: text-sm">
             Still want to be ahead of others?
           </p>
           <p class="text-center lg:text-xl sm: text-sm">
@@ -61,7 +63,7 @@ const referralId = location.state.refId
           </p>
           <div>
             <form>
-              <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
+              <div class="flex lg:flex-row mt-5 lg:w-4/6 sm: flex-col sm: w-5/6 sm: m-auto">
                 <input
                   class="lg:w-4/5 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
                   ref={textAreaRef}
@@ -80,10 +82,10 @@ const referralId = location.state.refId
               </div>
             </form>
           </div>
-          <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
-            <img src={whatsappImg} class="lg:w-2/12 sm: w-3/12" />
-            <img src={twitterImg} class="lg:w-2/12 sm: w-3/12" />
-            <img src={facebookImg} class="lg:w-2/12 sm: w-3/12" />
+          <div class="flex flex-row w-1/2 m-auto justify-between py-5 lg:py-0 mt-5 lg:mt-1">
+            <img src={whatsappImg} class="lg:w-1/12 sm: w-3/12" />
+            <img src={twitterImg} class="lg:w-1/12 sm: w-3/12" />
+            <img src={facebookImg} class="lg:w-1/12 sm: w-3/12" />
           </div>
         </div>
       </div>
