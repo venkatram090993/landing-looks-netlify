@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import Layout from "../components/layout"
 import "../css/layout.css"
 import bannerImg from "../images/banner-image.png"
@@ -19,19 +19,26 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 const ThankYouPage = ({ location }) => {
-  console.log("loc", location.state.refId)
-  const referralId = location.state.refId
-
   const [copySuccess, setCopySuccess] = useState("")
+  const [refId, setRefId] = useState("")
   const textAreaRef = useRef(null)
+  let shareUrl = "http://looks.surge.sh/"
 
-const shareUrl = "http://looks.surge.sh/"+referralId
+  useEffect(()=>{
+    const {state}= location;
+    shareUrl = "http://looks.surge.sh/"+state.refId;
+    setRefId(state.refId)
+  },[]);
 
   function copyToClipboard(e) {
     textAreaRef.current.select()
     document.execCommand("copy")
     e.target.focus()
     setCopySuccess("Copied!")
+  }
+
+  if (typeof window === 'undefined') {
+    return<></>;
   }
 
   return (
@@ -72,7 +79,7 @@ const shareUrl = "http://looks.surge.sh/"+referralId
                 <input
                   class="lg:w-4/5 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
                   ref={textAreaRef}
-                  value={referralId}
+                  value={refId}
                 />
 
                 <div
