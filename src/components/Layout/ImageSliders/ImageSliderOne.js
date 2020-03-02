@@ -34,7 +34,7 @@ useEffect(()=>{
 
 
 let i = 0
-let SliderOneTimeOut = 5000
+let SliderOneTimeOut = 7000
 
   const sliderOneImages = [
     sliderOneImageTwo,
@@ -62,7 +62,7 @@ let SliderOneTimeOut = 5000
     <div class="w-3/12 lg:block md:hidden sm: hidden">
     <img
       src={sliderOneImages}
-      name="sliderThree"
+      name="sliderOne"
       class="w-full lg:h-screen  xl:h-auto md:h-screen"
       alt="prettyGirl-1"
       data-aos="zoom-in"

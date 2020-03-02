@@ -25,7 +25,7 @@ const ImageSliderThree = () => {
   })
 
   let i = 0
-  let SliderThreeTimeOut = 8000
+  let SliderThreeTimeOut = 6000
 
   const sliderThreeImages = [
     sliderThreeImageTwo,
@@ -51,7 +51,7 @@ const ImageSliderThree = () => {
     <div class="lg:w-3/12 lg:block md:block md:w-1/2 sm: hidden">
     <img
       src={sliderThreeImageOne}
-      name="sliderTwo"
+      name="sliderThree"
       class="w-full lg:h-screen  xl:h-auto md:h-screen"
       alt="prettyGirl-1"
       data-aos="zoom-in"

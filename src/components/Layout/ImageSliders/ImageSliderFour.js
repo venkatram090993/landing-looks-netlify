@@ -25,7 +25,7 @@ const ImageSliderFour = () => {
   })
 
   let i = 0
-  let SliderFourTimeOut = 6000
+  let SliderFourTimeOut = 8000
 
   const sliderFourImages = [
     sliderFourImageTwo,
