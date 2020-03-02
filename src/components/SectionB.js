@@ -9,7 +9,7 @@ import logo from "../images/logo.png"
 import ImageSliderOne from "./Layout/ImageSliders/ImageSliderOne"
 import ImageSliderTwo from "./Layout/ImageSliders/ImageSliderTwo"
 import ImageSliderThree from "./Layout/ImageSliders/ImageSliderThree"
-import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour"
+import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour" 
 
 import getFirebase from "../firebase"
 
@@ -52,6 +52,10 @@ const SectionB = () => {
     Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
       const database = getFirebase(firebase).firestore()
     })
+
+    console.log(Math.floor(Math.random() * 2))
+
+    
   })
 
   const lazyApp = import("firebase/app")
@@ -122,6 +126,7 @@ const SectionB = () => {
           </div>
         </div>
       </div>
+      
 
       //   <div
       //     class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-600 px-4 py-3 shadow-md z-20 alertBox"
@@ -153,6 +158,29 @@ const SectionB = () => {
     )
   }
 
+
+
+
+  let descriptionBlock = (
+
+    <div>
+<p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+    <span class="sm: font-bold lg:font-bold text-green-600">
+      Looks
+    </span>
+    , luxury fashion vlog.
+  </p>
+  <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+    Tryhaul, style tips and more.
+  </p>
+
+    </div>
+
+  )
+
+
+
+
   return (
     <div class="lg:h-screen lg:leading-normal overflow-y-hidden sm: w-full sm: h-screen bg-black font-sans">
       <div class="flex flex-col">
@@ -168,15 +196,7 @@ const SectionB = () => {
           <ImageSliderFour />
 
           <div class="lg:w-6/12 sm: w-6/12 p-10 rounded-lg lead-gen-div">
-            <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
-              <span class="sm: font-bold lg:font-bold text-green-600">
-                Looks
-              </span>
-              , luxury fashion vlog.
-            </p>
-            <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-              Tryhaul, style tips and more.
-            </p>
+          {descriptionBlock}
             <form
               onSubmit={e => {
                 e.preventDefault()

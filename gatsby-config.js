@@ -27,6 +27,18 @@ module.exports = {
         display: `minimal-ui`,
       },
     },
+
+    {
+        resolve: 'gatsby-plugin-google-marketing-platform',
+        options: {
+          optimize:{
+              id: 'GTM-PH3XBJB'
+          },
+          dataLayer: {
+            gaPropertyId: 'G-Z2Q5S2XBP3',
+          }
+        },
+      }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

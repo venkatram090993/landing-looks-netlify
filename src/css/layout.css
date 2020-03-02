@@ -841,7 +841,18 @@ pre tt:after {
  
     .button{
         position:absolute;
-        top:80%;
+        top:79.7%;
+        left:50%;
+        transform: translate(-50%,-69%);
+    }
+
+}
+
+@media screen and (max-width:375px){
+ 
+    .button{
+        position:absolute;
+        top:79.5%;
         left:50%;
         transform: translate(-50%,-69%);
     }

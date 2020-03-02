@@ -19,27 +19,28 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 const ThankYouPage = ({ location }) => {
-  console.log("loc", location.state.refId)
-  const referralId = location.state.refId
 
-  const [copySuccess, setCopySuccess] = useState("")
-  const textAreaRef = useRef(null)
+//   console.log("loc", location.state.refId)
+  const referralId = "hi";
 
-const shareUrl = "http://looks.surge.sh/"+referralId
+//   const [copySuccess, setCopySuccess] = useState("")
+//   const textAreaRef = useRef(null)
 
-  function copyToClipboard(e) {
-    textAreaRef.current.select()
-    document.execCommand("copy")
-    e.target.focus()
-    setCopySuccess("Copied!")
-  }
+// const shareUrl = "http://looks.surge.sh/"+referralId
+
+//   function copyToClipboard(e) {
+//     textAreaRef.current.select()
+//     document.execCommand("copy")
+//     e.target.focus()
+//     setCopySuccess("Copied!")
+//   }
 
   return (
     <Layout>
       <div class="bg-gray-200 font-sans">
         <div class="h-screen flex flex-row justify-bottom thankYouBottom">
           <button
-            class="button bg-white rounded-lg px-5 py-2 text-purple-800 lg:text-xl sm: text-base"
+            class="button bg-white rounded-lg px-5 py-2 text-purple-800 lg:text-xl sm: text-base sm: py-1"
             onClick={() => {
               navigate("/")
             }}
@@ -49,7 +50,7 @@ const shareUrl = "http://looks.surge.sh/"+referralId
         </div>
 
         <div
-          class="py-8 lg:py-4 flex flex-col justify-center text-white rounded-lg w-2/12 lg:w-4/6 sm: w-5/6 sm: px-2 m-auto thanks-div"
+          class="lg:py-4 flex flex-col justify-center text-white rounded-lg lg:w-4/6 sm: w-5/6 sm: px-2 sm: py-1 m-auto thanks-div"
           style={{ background: "RGBA(0,0,0,0.8" }}
         >
           <img src={wreathImg} class="w-3/12 lg:w-2/12 m-auto" />
@@ -71,17 +72,17 @@ const shareUrl = "http://looks.surge.sh/"+referralId
               <div class="flex lg:flex-row mt-5 lg:w-4/6 sm: flex-col sm: w-5/6 sm: m-auto">
                 <input
                   class="lg:w-4/5 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
-                  ref={textAreaRef}
+                //   ref={textAreaRef}
                   value={referralId}
                 />
 
                 <div
-                  onClick={copyToClipboard}
+                //   onClick={copyToClipboard}
                   style={{ background: "#19328C" }}
                   class=" cursor-pointer lg:m-0 lg:w-6/12 lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
                 >
                   <p class="lg:text-base pr-2 text-white">
-                    {document.execCommand("copy") ? copySuccess : "Copy"}
+                    {/* {document.execCommand("copy") ? copySuccess : "Copy"} */}
                   </p>
                 </div>
               </div>
@@ -90,19 +91,19 @@ const shareUrl = "http://looks.surge.sh/"+referralId
           <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
             <WhatsappShareButton
               class="lg:w-2/12 sm: w-3/12"
-              url={shareUrl}
+            //   url={shareUrl}
             >
               <WhatsappIcon size={32} round={true} />
             </WhatsappShareButton>
             <TwitterShareButton
               class="lg:w-2/12 sm: w-3/12"
-              url={shareUrl}
+            //   url={shareUrl}
             >
               <TwitterIcon size={32} round={true} />
             </TwitterShareButton>
             <FacebookShareButton
               class="lg:w-2/12 sm: w-3/12"
-              url={shareUrl}
+            //   url={shareUrl}
             >
               <FacebookIcon size={32} round={true} />
             </FacebookShareButton>
