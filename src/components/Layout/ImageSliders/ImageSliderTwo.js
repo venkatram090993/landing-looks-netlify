@@ -25,7 +25,7 @@ const ImageSliderTwo = () => {
   })
 
   let i = 0
-  let SliderTwoTimeOut = 10~000
+  let SliderTwoTimeOut = 10000
 
   const sliderTwoImages = [
     sliderTwoImageTwo,

@@ -52,7 +52,7 @@ const SectionB = () => {
 
   useEffect(()=>{
 
-    const lazyApp = import('firebase/app')
+  const lazyApp = import('firebase/app')
   const lazyDatabase = import('firebase/firestore')
 
   Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
@@ -76,6 +76,7 @@ const SectionB = () => {
 
 
   const validateAndCheckOut = () => {
+
     const emailValue = email
 
     let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
@@ -91,6 +92,7 @@ const SectionB = () => {
       database.collection("users").add({emailID:email})
     })
 
+    
     
     navigate("/thankYouPage")
     } else {
@@ -157,11 +159,11 @@ const SectionB = () => {
         
             {alertBox}
 
-          <ImageSliderTwo />
+          <ImageSliderThree />
 
           <ImageSliderOne />
 
-          <ImageSliderThree />
+          <ImageSliderTwo />
 
           <ImageSliderFour />        
 
