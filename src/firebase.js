@@ -10,6 +10,7 @@ const firebaseConfig = {
     };
 
 let firebaseInstance
+
 const getFirebase = firebase => {
   if (firebaseInstance) {
     return firebaseInstance

@@ -55,6 +55,7 @@ let SliderOneTimeOut = 7000
     setTimeout(() => {
       changeSliderOne()
     }, SliderOneTimeOut)
+    
   }
 
   return(

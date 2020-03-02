@@ -159,11 +159,11 @@ const SectionB = () => {
         <div class="flex flex-row w-full h-screen">
           {alertBox}
 
-          <ImageSliderTwo />
+          <ImageSliderThree />
 
           <ImageSliderOne />
 
-          <ImageSliderThree />
+          <ImageSliderTwo />
 
           <ImageSliderFour />
 
