@@ -134,10 +134,10 @@ const SectionB = () => {
           role="alert"
         >
           <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
-            New
+            Error
           </span>
           <span class="font-semibold mr-2 text-left flex-auto">
-            Get the coolest t-shirts from our brand new store
+          Please enter a valid email id
           </span>
           <div
             class=" cursor-pointer px-2 py-1"
@@ -149,36 +149,7 @@ const SectionB = () => {
           </div>
         </div>
       </div>
-      
-
-      //   <div
-      //     class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-600 px-4 py-3 shadow-md z-20 alertBox"
-      //     role="alert"
-      //   >
-      //     <div class="flex">
-      //       <div
-      //         class="absolute inset-0 flex  h-4 w-4 justify-end ml-1 mt-1 pl-64 cursor-pointer"
-      //         onClick={() => {
-      //           setEmailError(false)
-      //         }}
-      //       >
-      //         X
-      //       </div>
-      //       <div class="py-4">
-      //         <svg
-      //           class="fill-current h-6 w-6 text-red-500 mr-4"
-      //           xmlns="http://www.w3.org/2000/svg"
-      //           viewBox="0 0 20 20"
-      //         >
-      //           <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-      //         </svg>
-      //       </div>
-      //       <div>
-      //         <p class="mt-4">Please enter a valid email ID</p>
-      //       </div>
-      //     </div>
-      //   </div>
-    )
+)
   }
 
 

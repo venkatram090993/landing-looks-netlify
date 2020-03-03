@@ -815,6 +815,16 @@ pre tt:after {
 
 /* second draft */
 
+.alertBoxMobile{
+    
+    position:absolute;
+    top:30%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    
+}
+
+
 .alertBox{
     
     position:absolute;
@@ -823,6 +833,8 @@ pre tt:after {
     transform: translate(-50%,-50%);
     
 }
+
+
 
 @media screen and (max-width: 1440px){
     .alertBox{

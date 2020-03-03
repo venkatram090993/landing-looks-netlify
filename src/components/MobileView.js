@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react"
 import "../css/layout.css"
-// import AOS from "aos"
-// import "aos/dist/aos.css"
 import getFirebase from "../firebase"
-
 import image1 from "../images/image-tr3.png"
 import image2 from "../images/image-2-tr7.png"
 import image3 from "../images/image-3-tr4.png"
@@ -11,26 +8,7 @@ import sendImg from "../images/plane.svg"
 import sliderOneImageOne from "../images/slider1-1.png"
 import { navigate } from "gatsby"
 
-// import logo from "../images/logo.png";
-
 const MobileView = () =>{
-
-// Has to use this block if incase you are using AOS to be difined on the first encounter or else you'll get BUILD issue
-    
-//     let AOS;
-//   useEffect(() => {
-//     const AOS = require("aos");
-//     AOS.init({
-//       once: true,
-//     });
-//   }, []);
-
-//   useEffect(() => {
-//     if (AOS) {
-//       AOS.refresh();
-//     }
-//   });
-
 
 const [caseID, setCaseID] = useState("");
     
@@ -58,6 +36,10 @@ const [caseID, setCaseID] = useState("");
     }
   }, [])
 
+
+
+
+
   useEffect(() => {
     const lazyApp = import("firebase/app")
     const lazyDatabase = import("firebase/firestore")
@@ -79,17 +61,15 @@ const [caseID, setCaseID] = useState("");
       .toString(36)
       .slice(-6)
 
+      console.log("email", email)
+
     console.log("random===>", referralId)
 
     const emailValue = email
 
-    let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
+    let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim;
 
     if (email != "" && regex.test(email)) {
-      // let ref = firebase.firestore().collection("users").ref;
-
-      // console.log(ref);
-
       Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
         const database = getFirebase(firebase).firestore()
         database
@@ -112,12 +92,45 @@ const [caseID, setCaseID] = useState("");
   }
 
 
+  let alertBox = null
+
+  if (emailError) {
+    alertBox = (
+      <div class="bg-indigo-900 text-center py-3 w-5/6 z-20 alertBoxMobile">
+        <div
+          class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+          role="alert"
+        >
+          <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+            Error
+          </span>
+          <span class="font-semibold mr-2 text-left flex-auto">
+            Please enter a valid email id
+          </span>
+          <div
+            class=" cursor-pointer px-2 py-1"
+            onClick={() => {
+              setEmailError(false)
+            }}
+          >
+            X
+          </div>
+        </div>
+      </div>
+)
+  }
+  
+
+
+
   return (
       <div class="flex flex-row">
-  <div class="lg:w-3/12 md:w-1/2 sm: h-screen">
+  <div class="h-screen">
+
+      {alertBox}
             <img
               src={sliderOneImageOne}
-              class="lg:h-screen lg:w-screen md:w-screen sm: h-screen sm: w-full"
+              class="h-screen w-full"
               alt="prettyGirl-1"
               data-aos="zoom-in"
               data-aos-duration="1700"
@@ -125,28 +138,36 @@ const [caseID, setCaseID] = useState("");
             />
           </div>
              <div
-            class="lg:w-4/12 sm: w-6/12 lead-gen-div"
+            class="w-6/12 lead-gen-div"
             data-aos="zoom-out"
             data-aos-duration="1200"
             data-aos-delay="1800"
           >
-            <p class="lg:text-3xl md:text-3xl leading-normal text-white sm: text-5xl sm: text-center">
-            <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>, luxury fashion vlog.
+            <p class="leading-normal text-white text-5xl text-center">
+            <span class="font-bold text-green-600">Looks</span>, luxury fashion vlog.
             </p>
-            <p class="lg:text-xl leading-normal text-white sm: text-xl lg:mt-2 sm: mt-3 md:mt-2 sm: text-center">
+            <p class="leading-normal text-white text-xl mt-2 text-center">
               Short tryhaul, quick tutorials and more.
             </p>
-            <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
-              <input class="lg:w-1/2 lg:rounded-tl-full h-10 p-2 text-black sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md" autoFocus />
+            <div class="flex mt-5 flex-col w-5/6 m-auto">
+              <input class="h-10 p-2 text-black mb-5 w-full m-auto text-center rounded-md" autoFocus 
+              
+              onChange={event => {
+                setEmail(event.target.value)
+                console.log(email)
+              }}
+              onClick={() => {
+                setEmailError(false)
+              }}
+              
+              />
               <div
-                onClick={() => {
-                //   alert("Thanks")
-                }}
+                
                 style={{ background: "#19328C" }}
-                class=" cursor-pointer lg:m-0 lg:w-6/12  h-10 py-2 lg:px-2 sm: px-1 flex flex-row justify-center sm: w-10/12 lg:rounded-br-full sm: rounded-md sm: m-auto "
+                class=" cursor-pointer h-10 py-2 px-1 flex flex-row justify-center w-10/12 rounded-md m-auto "
               >
-                <img src={sendImg} class="w-8 lg:mr-2 sm: mr-1 " />
-                <p class="lg:text-base pr-2 text-white" onClick={()=>{navigate('/thankYouPage')}}>Get early access</p>
+                <img src={sendImg} class="w-8 mr-1 " />
+                <p class="lg:text-base pr-2 text-white" onClick={()=>{validateAndCheckOut()}}>Get early access</p>
               </div>
             </div>
           </div>

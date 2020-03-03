@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"
 import Layout from "../components/layout"
 import "../css/layout.css"
-import bannerImg from "../images/banner-image.png"
 import whatsappImg from "../images/instagram.svg"
 import twitterImg from "../images/twitter.svg"
 import facebookImg from "../images/facebook.svg"
@@ -19,7 +18,7 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 const ThankYouPage = ({ location }) => {
-  const [copySuccess, setCopySuccess] = useState("")
+  const [copySuccess, setCopySuccess] = useState("Copy")
   const [refId, setRefId] = useState("")
   const [url,setUrl] = useState("http://looks.surge.sh/")
   const textAreaRef = useRef(null)
@@ -34,12 +33,12 @@ const ThankYouPage = ({ location }) => {
 
 // const shareUrl = "http://looks.surge.sh/"+referralId
 
-//   function copyToClipboard(e) {
-//     textAreaRef.current.select()
-//     document.execCommand("copy")
-//     e.target.focus()
-//     setCopySuccess("Copied!")
-//   }
+  function copyToClipboard(e) {
+    textAreaRef.current.select()
+    document.execCommand("copy")
+    e.target.focus()
+    setCopySuccess("Copied!")
+  }
 
   if (typeof window === 'undefined') {
     return<></>;
@@ -87,12 +86,12 @@ const ThankYouPage = ({ location }) => {
                 />
 
                 <div
-                //   onClick={copyToClipboard}
+                  onClick={copyToClipboard}
                   style={{ background: "#19328C" }}
                   class=" cursor-pointer lg:m-0 lg:w-6/12 lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
                 >
                   <p class="lg:text-base pr-2 text-white">
-                    {/* {document.execCommand("copy") ? copySuccess : "Copy"} */}
+                    {document.execCommand("copy") ? copySuccess : "Copy"}
                   </p>
                 </div>
               </div>
