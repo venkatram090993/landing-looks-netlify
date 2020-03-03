@@ -625,6 +625,10 @@ pre tt:after {
 .lead-gen-div{
     
     position:absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: auto;
     top:70%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -662,8 +666,8 @@ pre tt:after {
         top:62%;
         left:50%;
         transform: translate(-50%,-50%);
-        width:50%;
-        height: 32%;
+        width:60%;
+        height: 36%;
         padding:5px;
     }
     
@@ -676,10 +680,10 @@ pre tt:after {
     .lead-gen-div{
         background: rgba(0,0,0,0.5);    
         position:absolute;
-        top:50%;
-        left:10%;
+        top:40%;
+        left:5%;
         transform: translate(-50%,-50%);
-        width:80%;
+        width:90%;
         height: 44%;
         padding:5px;
         box-sizing: border-box;
@@ -695,15 +699,111 @@ pre tt:after {
         background: rgba(0,0,0,0.5);    
         position:absolute;
         top:50%;
-        left:10%;
+        left:5%;
         transform: translate(-50%,-50%);
-        width:80%;
+        width:90%;
         height: 40%;
         padding:5px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column ;
         text-align: center;
+    }
+    
+
+    
+
+}
+
+
+
+@media screen and (max-width: 320px){
+    .lead-gen-div{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:30%;
+        left:5%;
+        transform: translate(-50%,-50%);
+        width:90%;
+        height: 50%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
+    }
+    
+
+    
+
+}
+
+
+.gifImage{
+
+    height: 400px;
+
+}
+
+
+
+@media screen and (max-width: 1440px){
+    .gifImage{
+        height: 620px;      
+    }
+    
+
+}
+
+@media screen and (max-width: 1024px){
+    .gifImage{
+        height: 500px;
+
+    }
+    
+
+}
+
+
+@media screen and (max-width: 768px){
+    .gifImage{
+        height: 600px;
+
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 425px){
+    .gifImage{
+        height: 400px;
+
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 375px){
+    .gifImage{
+        height: 400px;
+
+    }
+    
+
+    
+
+}
+
+
+
+@media screen and (max-width: 320px){
+    .gifImage{
+        height: 400px;
+
     }
     
 
@@ -841,7 +941,7 @@ pre tt:after {
  
     .button{
         position:absolute;
-        top:79.7%;
+        top:90%;
         left:50%;
         transform: translate(-50%,-69%);
     }
@@ -858,3 +958,12 @@ pre tt:after {
     }
 
 }
+/* 
+.box{
+    transition: 0.5s;
+}
+
+.box:hover{
+
+    transform: scale(1.1);
+} */

@@ -194,14 +194,14 @@ const SectionB = () => {
     , luxury fashion vlog.
   </p>
   <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-    Tryhaul, style tips and more.
+    Tryhaul, outfit ideas, style tips and more.
   </p>
 
     </div>
 
   )
 
-  if(caseID === 1){
+  if(caseID === 0){
 
     descriptionBlock = (
 
@@ -213,7 +213,7 @@ const SectionB = () => {
         , luxury fashion vlog.
       </p>
       <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-        Tryhaul, style tips and more.
+      Tryhaul, outfit ideas, style tips and more.
       </p>
     
         </div>
@@ -226,14 +226,14 @@ const SectionB = () => {
     descriptionBlock = (
 
         <div>
-    <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+    <p class="lg:text-6xl md:text-3xl md:mt-2 leading-normal text-white sm: text-2xl text-center font-serif">
         <span class="sm: font-bold lg:font-bold text-green-600">
           Looks
         </span>
         , sassy new way to fashion vlog
       </p>
       <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-        Tryhaul, style tips and more.
+      Tryhaul, outfit ideas, style tips and more.
       </p>
     
         </div>
@@ -259,7 +259,7 @@ const SectionB = () => {
 
           <ImageSliderFour />
 
-          <div class="lg:w-7/12 sm: w-6/12 p-10 rounded-lg lead-gen-div">
+          <div class="xl:w-7/12 lg:w-11/12 sm: w-6/12 p-12 md:py-5 rounded-lg lead-gen-div">
        {descriptionBlock}
             <form
               onSubmit={e => {
@@ -267,11 +267,11 @@ const SectionB = () => {
                 validateAndCheckOut()
               }}
             >
-              <div class="flex lg:flex-row mt-5 lg:w-full sm: flex-col sm: w-5/6 sm: m-auto">
+              <div class="flex lg:flex-row mt-5 lg:w-full lg:justify-center sm: flex-col sm: w-5/6 sm: m-auto">
                 <input
                   type="email"
-                  placeholder="E-mail ID"
-                  class="lg:w-1/2 placeholder-indigo-800 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
+                  placeholder="Enter your email"
+                  class="lg:w-5/12 placeholder-indigo-800 pl-5 lg:m-0 lg:rounded-l-full h-10 p-2 text-indigo-600 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
                   onChange={event => {
                     setEmail(event.target.value)
                     console.log(email)
@@ -286,7 +286,7 @@ const SectionB = () => {
                     validateAndCheckOut()
                   }}
                   style={{ background: "#19328C" }}
-                  class=" cursor-pointer lg:m-0 lg:w-6/12 lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
+                  class=" cursor-pointer lg:m-0 lg:w-4/12 lg:rounded-r-full  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                 >
                   <img src={sendImg} class="w-8 mr-2" />
                   <p class="lg:text-base pr-2 text-white">Get early access</p>

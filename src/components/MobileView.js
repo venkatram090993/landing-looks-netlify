@@ -1,7 +1,8 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import "../css/layout.css"
 // import AOS from "aos"
 // import "aos/dist/aos.css"
+import getFirebase from "../firebase"
 
 import image1 from "../images/image-tr3.png"
 import image2 from "../images/image-2-tr7.png"
@@ -30,6 +31,85 @@ const MobileView = () =>{
 //     }
 //   });
 
+
+const [caseID, setCaseID] = useState("");
+    
+  useEffect(()=>{
+
+    const myStorage = window.localStorage;
+    const caseIDFromLocalStorage = myStorage.getItem("caseID");
+
+
+
+
+    if(caseIDFromLocalStorage == null){
+
+        const caseIDValue = (Math.floor(Math.random() * 2));
+
+        myStorage.setItem("caseID",caseIDValue);
+       
+        setCaseID(caseIDValue);
+
+
+    } else{
+
+        setCaseID(caseIDFromLocalStorage);
+
+    }
+  }, [])
+
+  useEffect(() => {
+    const lazyApp = import("firebase/app")
+    const lazyDatabase = import("firebase/firestore")
+
+    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+      const database = getFirebase(firebase).firestore()
+    })
+    
+  })
+
+  const lazyApp = import("firebase/app")
+  const lazyDatabase = import("firebase/firestore")
+
+  const [email, setEmail] = useState("")
+  const [emailError, setEmailError] = useState(false)
+
+  const validateAndCheckOut = () => {
+    const referralId = Math.random()
+      .toString(36)
+      .slice(-6)
+
+    console.log("random===>", referralId)
+
+    const emailValue = email
+
+    let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
+
+    if (email != "" && regex.test(email)) {
+      // let ref = firebase.firestore().collection("users").ref;
+
+      // console.log(ref);
+
+      Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+        const database = getFirebase(firebase).firestore()
+        database
+          .collection("users")
+          .add({ emailID: email, referralId: referralId })
+      })
+
+      navigate("/thankYouPage", {
+        state: {
+          refId: referralId,
+        },
+      })
+    } else {
+      console.log("invalid")
+      setEmailError(true)
+      setTimeout(() => {
+        setEmailError(false)
+      }, 2000)
+    }
+  }
 
 
   return (
@@ -60,7 +140,7 @@ const MobileView = () =>{
               <input class="lg:w-1/2 lg:rounded-tl-full h-10 p-2 text-black sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md" autoFocus />
               <div
                 onClick={() => {
-                  alert("Thanks")
+                //   alert("Thanks")
                 }}
                 style={{ background: "#19328C" }}
                 class=" cursor-pointer lg:m-0 lg:w-6/12  h-10 py-2 lg:px-2 sm: px-1 flex flex-row justify-center sm: w-10/12 lg:rounded-br-full sm: rounded-md sm: m-auto "
