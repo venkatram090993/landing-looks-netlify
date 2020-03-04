@@ -1,15 +1,11 @@
 import React from "react"
-import { Link } from "gatsby"
-
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
-
-// import HeaderBlock from './HeaderBlock'
 import MobileView from "../components/MobileView"
 import SectionB from "../components/SectionB"
-
 import SectionC from "../components/SectionC"
+import TestThanks from "./testThanks"
 
 
 
@@ -20,13 +16,15 @@ const IndexPage = () => (
      <SectionB />
      </div>
 
-     <div class="lg:hidden md:hidden sm: block">
+     <div class="lg:hidden md:hidden sm: block ">
      <MobileView />
      </div>
 
-     <div class="">
+     <div class="py-10">
      <SectionC />
      </div>
+
+     {/* <TestThanks /> */}
     
   </Layout>
 )

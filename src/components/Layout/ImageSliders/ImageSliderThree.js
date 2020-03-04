@@ -25,7 +25,7 @@ const ImageSliderThree = () => {
   })
 
   let i = 0
-  let SliderThreeTimeOut = 6000
+  let SliderThreeTimeOut = 10000
 
   const sliderThreeImages = [
     sliderThreeImageTwo,
@@ -37,7 +37,8 @@ const ImageSliderThree = () => {
     document.sliderThree.src = sliderThreeImages[i]
 
     if (i < sliderThreeImages.length - 1) {
-      i++
+      i++;
+      SliderThreeTimeOut += 1000;
     } else {
       i = 0
     }

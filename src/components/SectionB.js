@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react"
 import "../css/layout.css"
-import AOS from "aos"
-import "aos/dist/aos.css"
-
 import sendImg from "../images/plane.svg"
-import logo from "../images/logo.png"
-
 import ImageSliderOne from "./Layout/ImageSliders/ImageSliderOne"
 import ImageSliderTwo from "./Layout/ImageSliders/ImageSliderTwo"
 import ImageSliderThree from "./Layout/ImageSliders/ImageSliderThree"
-import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour" 
+import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour"
 
 import getFirebase from "../firebase"
 
@@ -45,30 +40,75 @@ const SectionB = () => {
 
   // })
 
-  const [caseID, setCaseID] = useState("");
-    
-  useEffect(()=>{
+  const [caseID, setCaseID] = useState("")
 
-    const myStorage = window.localStorage;
-    const caseIDFromLocalStorage = myStorage.getItem("caseID");
+  const [userData, setUserData] = useState([])
 
+  const [browser , setBrowser] = useState("unable to define")
 
+  const [userTime, setUserTime] = useState("")
 
+  function detectBrowser () {
 
-    if(caseIDFromLocalStorage == null){
+    const browserArray = ["Chrome", "Firefox", "Safari", "Opera", "MSIE", "Trident", "Edge" ]
 
-        const caseIDValue = (Math.floor(Math.random() * 2));
-
-        myStorage.setItem("caseID",caseIDValue);
-       
-        setCaseID(caseIDValue);
+    let browserDetail, navigatorString = navigator.userAgent;
 
 
-    } else{
+    for ( let i = 0; i < browserArray.length; i++ ){
 
-        setCaseID(caseIDFromLocalStorage);
+        if((navigatorString.indexOf(browserArray[i]) > -1 )){
 
+            browserDetail = browserArray[i];
+            setBrowser(browserDetail)
+
+            break;
+        }
+        
     }
+
+    var currentTime = new Date();
+    setUserTime(currentTime);
+
+
+  }
+
+
+  useEffect(() => {
+      
+    const myStorage = window.localStorage
+    const caseIDFromLocalStorage = myStorage.getItem("caseID")
+
+    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+      const database = getFirebase(firebase).firestore()
+
+      database
+        .collection("users")
+        .get()
+        .then(snapshot => {
+          let userDataArr = []
+          snapshot.docs.forEach(doc => {
+            userDataArr.push(doc.data())
+          })
+
+          setUserData(userDataArr)
+        })
+    })
+
+
+
+    if (caseIDFromLocalStorage === null) {
+      const caseIDValue = Math.floor(Math.random() * 2)
+
+      myStorage.setItem("caseID", caseIDValue)
+
+      setCaseID(caseIDValue)
+    } else {
+      setCaseID(caseIDFromLocalStorage)
+    }
+
+    detectBrowser();
+
   }, [])
 
   useEffect(() => {
@@ -78,7 +118,6 @@ const SectionB = () => {
     Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
       const database = getFirebase(firebase).firestore()
     })
-    
   })
 
   const lazyApp = import("firebase/app")
@@ -94,27 +133,34 @@ const SectionB = () => {
 
     console.log("random===>", referralId)
 
-    const emailValue = email
-
     let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
 
-    if (email != "" && regex.test(email)) {
-      // let ref = firebase.firestore().collection("users").ref;
+    if (email !== "" && regex.test(email)) {
 
-      // console.log(ref);
 
-      Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-        const database = getFirebase(firebase).firestore()
-        database
-          .collection("users")
-          .add({ emailID: email, referralId: referralId })
-      })
+     for(let user of userData ){
 
-      navigate("/thankYouPage", {
-        state: {
-          refId: referralId,
-        },
-      })
+        if(user.emailID == email){
+            alert("user Exist")
+            return false;
+        }
+        else{
+        Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+            const database = getFirebase(firebase).firestore()
+            database
+              .collection("users")
+              .add({ emailID: email, referralId: referralId, case: caseID, device:"largeScreen", browserDetail: browser, time: userTime  })
+          })
+    
+          navigate("/thankYouPage", {
+            state: {
+              refId: referralId,
+            },
+          })
+        }
+
+     }
+
     } else {
       console.log("invalid")
       setEmailError(true)
@@ -123,6 +169,8 @@ const SectionB = () => {
       }, 2000)
     }
   }
+
+ 
 
   let alertBox = null
 
@@ -137,7 +185,7 @@ const SectionB = () => {
             Error
           </span>
           <span class="font-semibold mr-2 text-left flex-auto">
-          Please enter a valid email id
+            Please enter a valid email id
           </span>
           <div
             class=" cursor-pointer px-2 py-1"
@@ -149,72 +197,46 @@ const SectionB = () => {
           </div>
         </div>
       </div>
-)
+    )
   }
-
-
-
 
   let descriptionBlock = (
-
     <div>
-<p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
-    <span class="sm: font-bold lg:font-bold text-green-600">
-      Looks
-    </span>
-    , luxury fashion vlog.
-  </p>
-  <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-    Tryhaul, outfit ideas, style tips and more.
-  </p>
-
+      <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+        <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
+        luxury fashion vlog.
+      </p>
+      <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+        Tryhaul, outfit ideas, style tips and more.
+      </p>
     </div>
-
   )
 
-  if(caseID === 0){
-
+  if (caseID === 0) {
     descriptionBlock = (
-
-        <div>
-    <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
-        <span class="sm: font-bold lg:font-bold text-green-600">
-          Looks
-        </span>
-        , luxury fashion vlog.
-      </p>
-      <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-      Tryhaul, outfit ideas, style tips and more.
-      </p>
-    
-        </div>
-    
-      )
-
-
-  }else{
-
+      <div>
+        <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
+          <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
+          luxury fashion vlog.
+        </p>
+        <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+          Tryhaul, outfit ideas, style tips and more.
+        </p>
+      </div>
+    )
+  } else {
     descriptionBlock = (
-
-        <div>
-    <p class="lg:text-6xl md:text-3xl md:mt-2 leading-normal text-white sm: text-2xl text-center font-serif">
-        <span class="sm: font-bold lg:font-bold text-green-600">
-          Looks
-        </span>
-        , sassy new way to fashion vlog
-      </p>
-      <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
-      Tryhaul, outfit ideas, style tips and more.
-      </p>
-    
-        </div>
-    
-      )
+      <div>
+        <p class="lg:text-6xl md:text-3xl md:mt-2 leading-normal text-white sm: text-2xl text-center font-serif">
+          <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
+          sassy new way to fashion vlog
+        </p>
+        <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
+          Tryhaul, outfit ideas, style tips and more.
+        </p>
+      </div>
+    )
   }
-
-
-
-
 
   return (
     <div class="h-screen lg:leading-normal sm: w-full bg-black font-sans">
@@ -231,7 +253,7 @@ const SectionB = () => {
           <ImageSliderFour />
 
           <div class="xl:w-7/12 lg:w-11/12 sm: w-6/12 p-12 md:py-5 rounded-lg lead-gen-div">
-       {descriptionBlock}
+            {descriptionBlock}
             <form
               onSubmit={e => {
                 e.preventDefault()
@@ -253,13 +275,14 @@ const SectionB = () => {
                 />
 
                 <div
+                  role="button"
                   onClick={() => {
                     validateAndCheckOut()
                   }}
                   style={{ background: "#19328C" }}
                   class=" cursor-pointer lg:m-0 lg:w-4/12 lg:rounded-r-full  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                 >
-                  <img src={sendImg} class="w-8 mr-2" />
+                  <img src={sendImg} class="w-8 mr-2" alt="get early access" />
                   <p class="lg:text-base pr-2 text-white">Get early access</p>
                 </div>
               </div>

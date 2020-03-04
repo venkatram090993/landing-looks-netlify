@@ -682,10 +682,8 @@ pre tt:after {
         position:absolute;
         top:40%;
         left:5%;
-        transform: translate(-50%,-50%);
         width:90%;
-        height: 44%;
-        padding:5px;
+        height: 50%;
         box-sizing: border-box;
     }
     
@@ -698,11 +696,11 @@ pre tt:after {
     .lead-gen-div{
         background: rgba(0,0,0,0.5);    
         position:absolute;
-        top:50%;
+        top:30%;
         left:5%;
         transform: translate(-50%,-50%);
         width:90%;
-        height: 40%;
+        height: 60%;
         padding:5px;
         box-sizing: border-box;
         display: flex;
@@ -722,10 +720,10 @@ pre tt:after {
         background: rgba(0,0,0,0.5);    
         position:absolute;
         top:30%;
-        left:5%;
+        left:7.5%;
         transform: translate(-50%,-50%);
-        width:90%;
-        height: 50%;
+        width:85%;
+        height: 57.5%;
         padding:5px;
         box-sizing: border-box;
         display: flex;
@@ -741,7 +739,7 @@ pre tt:after {
 
 .gifImage{
 
-    height: 400px;
+    height: 600px;
 
 }
 
@@ -831,6 +829,16 @@ pre tt:after {
     top:55%;
     left:50%;
     transform: translate(-50%,-50%);
+    
+}
+
+.showRefURL{
+    
+    position:absolute;
+    top:15%;
+    left:50%;
+    max-width: 90%;
+    transform: translate(-50%,-100%) rotate(20deg);
     
 }
 

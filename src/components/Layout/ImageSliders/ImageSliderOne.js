@@ -34,7 +34,7 @@ useEffect(()=>{
 
 
 let i = 0
-let SliderOneTimeOut = 7000
+let SliderOneTimeOut = 9000
 
   const sliderOneImages = [
     sliderOneImageTwo,
@@ -47,7 +47,8 @@ let SliderOneTimeOut = 7000
     document.sliderOne.src = sliderOneImages[i]
 
     if (i < sliderOneImages.length - 1) {
-      i++
+      i++;
+      SliderOneTimeOut += 1000;
     } else {
       i = 0
     }

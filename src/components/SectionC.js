@@ -6,7 +6,6 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 import gifImage from "../images/gifnew2.gif"
-import facebookImage from "../images/facebook.png"
 import dressImg from "../images/dress.svg"
 import fashionImg from "../images/fashion.svg"
 import styleTipImg from "../images/makeover.svg"
@@ -34,9 +33,9 @@ const SectionC = () => {
   })
 
   return (
-    <div class="w-full sm: h-auto lg:py-1   sm: py-10 flex lg:flex-row sm: flex-col font-sans md:flex-col md:h-auto">
+    <div class="lg:w-full sm: h-auto lg:py-1   sm: py-10 flex lg:flex-row sm: flex-col font-sans md:flex-col md:h-auto ">
       <div class="flex lg:flex-row align-middle lg:w-2/6 justify-center md:w-4/6  md:m-auto md:pt-20">
-        <img src={gifImage} class="gifImage lg:-mt-8 lg:pb-10" />
+        <img src={gifImage} class="gifImage lg:-mt-8 lg:pb-10" alt="Demo try on haul app" />
       </div>
 
       <div class="flex flex-col lg:w-4/6 sm: h-auto lg:py-2 px-20 md:py-0 text-gray-600 md:w-full ">
@@ -56,7 +55,7 @@ const SectionC = () => {
               data-aos-delay="300"
               data-aos-duration="1000"
             >
-              <img src={dressImg} class="w-20 py-3 m-auto" />
+              <img src={dressImg} class="w-20 py-3 m-auto" alt="Try on Haul feature" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Try Haul</h1>
             </div>
 
@@ -68,7 +67,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={beachImg} class="w-20 py-3 m-auto" />
+              <img src={beachImg} alt="beach bikini and swimwear reviews" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Beach</h1>
             </div>
 
@@ -80,7 +79,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={vacationImg} class="w-20 py-3 m-auto" />
+              <img src={vacationImg} alt="try on haul reviews related to vacation and related occations dressing tips" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Vacation</h1>
             </div>
           </div>
@@ -94,7 +93,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={fashionImg} class="w-20 py-3 m-auto" />
+              <img src={fashionImg} alt="today's style tips" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Style Tips</h1>
             </div>
 
@@ -107,7 +106,7 @@ const SectionC = () => {
               
               
               >
-              <img src={poolPartyImg} class="w-20 py-3 m-auto" />
+              <img src={poolPartyImg} alt="how to dress for a pool party" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Pool Party</h1>
             </div>
 
@@ -119,7 +118,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={styleTipImg} class="w-20 py-3 m-auto" />
+              <img src={styleTipImg} alt='closet-tour' class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Closet-tour</h1>
             </div>
           </div>
@@ -133,7 +132,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={styleTipImg} class="w-20 py-3 m-auto" />
+              <img src={styleTipImg} alt='out-fit ideas related to try haul reviews.' class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Outfit ideas</h1>
             </div>
 
@@ -145,7 +144,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={nightOutImg} class="w-20 py-3 m-auto" />
+              <img src={nightOutImg} alt="how to dress for Girls night out" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Girls Night Out</h1>
             </div>
 
@@ -157,7 +156,7 @@ const SectionC = () => {
               data-aos-duration="1000"
               
               >
-              <img src={danceParty} class="w-20 py-3 m-auto" />
+              <img src={danceParty} alt="how to dress for a dance party" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Dance party</h1>
             </div>
 

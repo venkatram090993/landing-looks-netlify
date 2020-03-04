@@ -37,7 +37,8 @@ const ImageSliderFour = () => {
     document.sliderFour.src = sliderFourImages[i]
 
     if (i < sliderFourImages.length - 1) {
-      i++
+      i++;
+      SliderFourTimeOut += 1000;
     } else {
       i = 0
     }
