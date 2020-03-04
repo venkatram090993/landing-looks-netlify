@@ -30,19 +30,51 @@ const ThankYouPage = ({location}) => {
     setRefId("hi")
     setUrl("http://looks.surge.sh?")
   }, [])
+  
 
-  // const shareUrl = "http://looks.surge.sh/"+referralId
+  useEffect(()=>{
+    
+
+    let time = 5;
+
+    let counterTimer = setInterval(() => {
+
+    --time;
+
+    document.getElementById("counter").innerHTML = time;
+    if(time === 0){
+
+      clearInterval(counterTimer); 
+
+      const emailValue = location.state.emailID;
+
+      navigate("/screenshotPage",{state: {
+        refURL : "www.looks.surge.sh",
+        emailID : emailValue
+    }})
+      
+    }
+        
+    }, 1200);
+
+    
+
+  })
+
+  const shareUrlToShare = "http://looks.surge.sh/"+"?URLSDD"
 
   function copyToClipboard(e) {
     textAreaRef.current.select()
     document.execCommand("copy")
     e.target.focus()
-    setCopySuccess("Copy")
+    setCopySuccess("Copy");
   }
 
   if (typeof window === "undefined") {
     return <></>
   }
+
+
 
   return (
     <>
@@ -51,11 +83,14 @@ const ThankYouPage = ({location}) => {
           <button
             class="button bg-white rounded-lg px-5 py-2 text-purple-800 lg:text-xl sm: text-base sm: py-1"
             onClick={() => {
+
                 const emailValue = location.state.emailID;
-              navigate("/", {
+                
+              navigate("/",{state: {
                 refURL : "www.looks.surge.sh",
                 emailID : emailValue
-            })
+            }})
+
             }}
           >
             Head to Home page
@@ -63,7 +98,7 @@ const ThankYouPage = ({location}) => {
         </div>
 
         <div
-          class="lg:py-4 flex flex-col justify-center text-white rounded-lg lg:w-4/6 sm: w-5/6 sm: px-2 sm: py-1 m-auto thanks-div"
+          class="lg:py-4 flex flex-col justify-center text-white rounded-lg lg:w-4/6 sm: w-5/6 sm: px-2 sm: py-1 sm: pt-10 m-auto thanks-div"
           style={{ background: "RGBA(0,0,0,0.8" }}
         >
           <img
@@ -81,14 +116,19 @@ const ThankYouPage = ({location}) => {
           <p class="text-center lg:text-2xl my-4 lg:my-2 sm: text-sm">
             Still want to be ahead of others?
           </p>
-          <p class="text-center lg:py-5 lg:text-3xl sm: text-sm">
+          <p class="text-center lg:py-5 lg:text-3xl sm: text-sm lg:block md:block sm: hidden">
             {textChange}
           </p>
+          <p class="text-center lg:py-5 lg:text-3xl sm: text-sm lg:hidden md:hidden sm: block">
+           Share screenshot &amp; Link and go ahead for others!
+          </p>
+
+          <div  id="counter" class="text-6xl text-center mt-10 -mb-10">5</div>
           <div>
             <form>
               <div class="flex lg:flex-row justify-center mt-5 lg:w-3/6 sm: flex-col sm: w-5/6 sm: m-auto">
                 <input
-                  class="lg:w-4/6 placeholder-indigo-800 mr-5 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
+                  class=" lg:block md:block sm: hidden lg:w-4/6 placeholder-indigo-800 mr-5 pl-5 lg:rounded-none h-10 p-2 text-indigo-800 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
                   ref={textAreaRef}
                   value={refId}
                 />
@@ -100,7 +140,7 @@ const ThankYouPage = ({location}) => {
                     // copyToClipboard()
                   }}
                   style={{ background: "#19328C" }}
-                  class=" cursor-pointer lg:m-0 lg:w-3/12 lg:flex lg:flex-row lg:justify-center  lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
+                  class=" lg:block md:block sm: hidden  cursor-pointer lg:m-0 lg:w-3/12 lg:flex lg:flex-row lg:justify-center  lg:rounded-none  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto "
                 >  
                 <img src={clipboard} class="w-1/6   mr-3" />
                 <p class="lg:text-base pr-2 text-white text-center">
@@ -111,19 +151,6 @@ const ThankYouPage = ({location}) => {
             </form>
           </div>
           <div class="flex flex-row w-1/2 m-auto justify-between py-5 mt-5">
-            <button
-            class="button bg-white rounded-lg px-5 py-2 text-purple-800 lg:text-xl sm: text-base sm: py-1"
-            onClick={() => {
-              navigate("/", {
-                state: {
-                    refId: "referralId",
-                    shareUrl : "http://looks.surge.sh/"
-                 },
-            })
-            }}
-          >
-            Head to Home page
-          </button>
           </div>
         </div>
       </div>

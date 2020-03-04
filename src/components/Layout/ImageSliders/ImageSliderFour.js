@@ -43,7 +43,7 @@ const ImageSliderFour = () => {
       i = 0
     }
 
-    setTimeout(() => {
+   setTimeout(() => {
         changeSliderFour()
     }, SliderFourTimeOut)
   }

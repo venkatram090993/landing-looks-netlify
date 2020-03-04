@@ -737,6 +737,91 @@ pre tt:after {
 }
 
 
+
+
+
+
+.screenshot-container{
+    
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    
+}
+
+
+@media screen and (max-width: 425px){
+    .screenshot-container{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:30%;
+        left:5%;
+        width:90%;
+        height:60%;
+        box-sizing: border-box;
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 375px){
+    .screenshot-container{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:30%;
+        left:5%;
+        transform: translate(-50%,-50%);
+        width:90%;
+        height: 60%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
+    }
+    
+
+    
+
+}
+
+
+
+@media screen and (max-width: 320px){
+    .screenshot-container{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:30%;
+        left:7.5%;
+        transform: translate(-50%,-50%);
+        width:85%;
+        height: 67.5%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
+    }
+    
+
+    
+
+}
+
+
+
+
+
+
+
+
 .gifImage{
 
     height: 600px;
@@ -835,10 +920,10 @@ pre tt:after {
 .showRefURL{
     
     position:absolute;
-    top:15%;
+    top:11%;
     left:50%;
     max-width: 90%;
-    transform: translate(-50%,-100%) rotate(20deg);
+    transform: translate(-50%,-100%) rotate(-7deg);
     
 }
 
@@ -950,6 +1035,7 @@ pre tt:after {
     
 }
 
+
 .button{
     position:absolute;
     top:93%;
@@ -987,3 +1073,128 @@ pre tt:after {
 
     transform: scale(1.1);
 } */
+
+
+
+/* Rewards page */
+
+
+
+
+.screenshotDiv{
+    
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: auto;
+    top:70%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    
+}
+
+@media screen and (max-width: 1440px){
+    .screenshotDiv{
+    
+        position:absolute;
+        top:62%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+    
+
+}
+
+@media screen and (max-width: 1024px){
+    .screenshotDiv{
+        position:absolute;
+        top:62%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+    
+
+}
+
+
+@media screen and (max-width: 768px){
+    .screenshotDiv{
+        background: rgba(0,0,0,0.5);   
+        position:absolute;
+        top:62%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width:60%;
+        height: 36%;
+        padding:5px;
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 425px){
+    .screenshotDiv{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:40%;
+        left:5%;
+        width:90%;
+        height: 30%;
+        box-sizing: border-box;
+    }
+    
+
+    
+
+}
+
+@media screen and (max-width: 375px){
+    .screenshotDiv{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:40%;
+        left:5%;
+        transform: translate(-50%,-50%);
+        width:90%;
+        height: 40%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
+    }
+    
+
+    
+
+}
+
+
+
+@media screen and (max-width: 320px){
+    .screenshotDiv{
+        background: rgba(0,0,0,0.5);    
+        position:absolute;
+        top:30%;
+        left:7.5%;
+        transform: translate(-50%,-50%);
+        width:85%;
+        height: 57.5%;
+        padding:5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column ;
+        text-align: center;
+    }
+    
+
+    
+
+}
+
+
+#select::selection { background: transparent;
+                        border: transparent; }
