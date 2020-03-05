@@ -5,7 +5,7 @@ import "../css/layout.css"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
-import gifImage from "../images/gifnew2.gif"
+import gifImage from "../images/newGif.gif"
 import dressImg from "../images/dress.svg"
 import fashionImg from "../images/fashion.svg"
 import styleTipImg from "../images/makeover.svg"
@@ -17,6 +17,7 @@ import nightOutImg from "../images/martini.svg"
 import vacationImg from "../images/vacation.svg"
 
 import danceParty from "../images/girl.svg"
+
 
 const SectionC = () => {
   let AOS

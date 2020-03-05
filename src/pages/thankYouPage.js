@@ -31,9 +31,18 @@ const ThankYouPage = ({ location }) => {
     setRefId(state.refId)
     setUrl("http://looks.surge.sh?" + state.refId);
 
+
+
     let time = 10;
 
-    let counterTimer = setInterval(() => {
+    let counterTimer;
+
+
+    if(state.device === "mobile"){
+
+
+
+    counterTimer = setInterval(() => {
 
     --time;
 
@@ -43,21 +52,28 @@ const ThankYouPage = ({ location }) => {
 
       clearInterval(counterTimer); 
 
-      if(state.device === "mobile"){
+      
+
         const emailValue = location.state.emailID;
 
-        navigate("/screenshotPage",{state: {
+        navigate("/screenshotPage", {state: {
           refURL : url,
           emailID : emailValue
       }})
-      }
+      
     }
         
     }, 1200);
 
+}
 
+return()=>{
+
+    clearInterval(counterTimer);
+
+}
     
-  }, [])
+  })
 
 
 

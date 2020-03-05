@@ -622,6 +622,13 @@ pre tt:after {
 } */
 
 
+.container-div{
+    background-image: url('../images/slider1-1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .lead-gen-div{
     
     position:absolute;
@@ -648,7 +655,7 @@ pre tt:after {
 }
 
 @media screen and (max-width: 1024px){
-    .lead-gen-div{
+    .lead-gen-div{  
         position:absolute;
         top:62%;
         left:50%;
@@ -678,13 +685,15 @@ pre tt:after {
 
 @media screen and (max-width: 425px){
     .lead-gen-div{
-        background: rgba(0,0,0,0.5);    
+        /* background: rgba(0,0,0,0.5);     */
+        background: transparent;
         position:absolute;
         top:40%;
         left:5%;
         width:90%;
         height: 50%;
         box-sizing: border-box;
+        transform: translate(0%, 0%);
     }
     
 
@@ -735,91 +744,6 @@ pre tt:after {
     
 
 }
-
-
-
-
-
-
-.screenshot-container{
-    
-    position:absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: auto;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    
-}
-
-
-@media screen and (max-width: 425px){
-    .screenshot-container{
-        background: rgba(0,0,0,0.5);    
-        position:absolute;
-        top:30%;
-        left:5%;
-        width:90%;
-        height:60%;
-        box-sizing: border-box;
-    }
-    
-
-    
-
-}
-
-@media screen and (max-width: 375px){
-    .screenshot-container{
-        background: rgba(0,0,0,0.5);    
-        position:absolute;
-        top:30%;
-        left:5%;
-        transform: translate(-50%,-50%);
-        width:90%;
-        height: 60%;
-        padding:5px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column ;
-        text-align: center;
-    }
-    
-
-    
-
-}
-
-
-
-@media screen and (max-width: 320px){
-    .screenshot-container{
-        background: rgba(0,0,0,0.5);    
-        position:absolute;
-        top:30%;
-        left:7.5%;
-        transform: translate(-50%,-50%);
-        width:85%;
-        height: 67.5%;
-        padding:5px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column ;
-        text-align: center;
-    }
-    
-
-    
-
-}
-
-
-
-
-
-
 
 
 .gifImage{
@@ -901,7 +825,7 @@ pre tt:after {
 .alertBoxMobile{
     
     position:absolute;
-    top:30%;
+    top:5%;
     left:50%;
     transform: translate(-50%,-50%);
     
@@ -914,16 +838,6 @@ pre tt:after {
     top:55%;
     left:50%;
     transform: translate(-50%,-50%);
-    
-}
-
-.showRefURL{
-    
-    position:absolute;
-    top:11%;
-    left:50%;
-    max-width: 90%;
-    transform: translate(-50%,-100%) rotate(-7deg);
     
 }
 

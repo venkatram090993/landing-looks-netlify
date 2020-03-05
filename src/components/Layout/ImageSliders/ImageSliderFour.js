@@ -8,6 +8,10 @@ import AOS from "aos"
 import "aos/dist/aos.css"
 
 const ImageSliderFour = () => {
+
+
+    let timeoutFour;
+
   let AOS
 
   useEffect(() => {
@@ -15,6 +19,9 @@ const ImageSliderFour = () => {
     AOS.init({
       once: true,
     })
+
+    return () =>{ clearTimeout(timeoutFour) }
+
   }, [])
 
   useEffect(() => {
@@ -22,6 +29,9 @@ const ImageSliderFour = () => {
       AOS.refresh()
     }
     changeSliderFour()
+
+    return () =>{ clearTimeout(timeoutFour) }
+
   })
 
   let i = 0
@@ -43,7 +53,7 @@ const ImageSliderFour = () => {
       i = 0
     }
 
-   setTimeout(() => {
+    timeoutFour =  setTimeout(() => {
         changeSliderFour()
     }, SliderFourTimeOut)
   }

@@ -5,7 +5,7 @@ import ImageSliderOne from "./Layout/ImageSliders/ImageSliderOne"
 import ImageSliderTwo from "./Layout/ImageSliders/ImageSliderTwo"
 import ImageSliderThree from "./Layout/ImageSliders/ImageSliderThree"
 import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour"
-
+import SectionC from './SectionC'
 import getFirebase from "../firebase"
 
 import { navigate } from "gatsby"
@@ -47,6 +47,9 @@ const SectionB = () => {
   const [browser , setBrowser] = useState("unable to define")
 
   const [userTime, setUserTime] = useState("")
+
+  const [buttonText, setButtonText] = useState("Get Early Access")
+
 
   function detectBrowser () {
 
@@ -138,28 +141,41 @@ const SectionB = () => {
     if (email !== "" && regex.test(email)) {
 
 
-     for(let user of userData ){
+        setButtonText("Adding to waiting list...")
 
-        if(user.emailID == email){
-            alert("user Exist")
-            return false;
-        }
-        else{
-        Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-            const database = getFirebase(firebase).firestore()
-            database
-              .collection("users")
-              .add({ emailID: email, referralId: referralId, case: caseID, device:"largeScreen", browserDetail: browser, time: userTime  })
-          })
+
+        setTimeout(()=>{
+            navigate("/thankYouPage", {
+                state: {
+                  refId: referralId,
+                },
+              })
+        },400)
+
+
+
+
+    //  for(let user of userData ){
+
+    //     if(user.emailID == email){
+    //         alert("user Exist")
+    //         return false;
+    //     }
+    //     else{
+    //     Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+    //         const database = getFirebase(firebase).firestore()
+    //         database
+    //           .collection("users")
+    //           .add({ emailID: email, referralId: referralId, case: caseID, device:"largeScreen", browserDetail: browser, time: userTime  })
+    //       })
     
-          navigate("/thankYouPage", {
-            state: {
-              refId: referralId,
-            },
-          })
-        }
+         
+    //     }
 
-     }
+
+        
+
+    //  }
 
     } else {
       console.log("invalid")
@@ -204,7 +220,7 @@ const SectionB = () => {
     <div>
       <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
         <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
-        luxury fashion vlog.
+        luxury fashion video blogging app.
       </p>
       <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
         Tryhaul, outfit ideas, style tips and more.
@@ -217,7 +233,7 @@ const SectionB = () => {
       <div>
         <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
           <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
-          luxury fashion vlog.
+          luxury fashion video blogging app.
         </p>
         <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
           Tryhaul, outfit ideas, style tips and more.
@@ -229,7 +245,7 @@ const SectionB = () => {
       <div>
         <p class="lg:text-6xl md:text-3xl md:mt-2 leading-normal text-white sm: text-2xl text-center font-serif">
           <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
-          sassy new way to fashion vlog
+          sassy new way to post fashion V-blogs. 
         </p>
         <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
           Tryhaul, outfit ideas, style tips and more.
@@ -239,7 +255,11 @@ const SectionB = () => {
   }
 
   return (
-    <div class="h-screen lg:leading-normal sm: w-full bg-black font-sans">
+
+    <div>
+
+
+     <div class="h-screen lg:leading-normal sm: w-full bg-black font-sans">
       <div class="flex flex-col h-screen">
         <div class="flex flex-row w-full h-screen">
           {alertBox}
@@ -283,18 +303,21 @@ const SectionB = () => {
                   class=" cursor-pointer lg:m-0 lg:w-4/12 lg:rounded-r-full  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                 >
                   <img src={sendImg} class="w-8 mr-2" alt="get early access" />
-                  <p class="lg:text-base pr-2 text-white">Get early access</p>
+                  <p class="lg:text-base pr-2 text-white">{buttonText}</p>
                 </div>
               </div>
             </form>
+            <div class="flex justify-center flex-row my-5 text-white text-center text-3xl"><p>Launch in April.</p></div>
           </div>
-
           {/* <div class="w-64 h-64 bg-blue-700 absolute">
               
               <p id="count">2000</p><p>Users have registered already. Register Now!</p>
           </div> */}
         </div>
       </div>
+    </div>
+
+    <SectionC />
     </div>
   )
 }

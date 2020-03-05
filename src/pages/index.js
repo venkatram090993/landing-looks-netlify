@@ -5,7 +5,6 @@ import SEO from "../components/seo"
 import MobileView from "../components/MobileView"
 import SectionB from "../components/SectionB"
 import SectionC from "../components/SectionC"
-import TestThanks from "./testThanks"
 
 
 
@@ -19,13 +18,6 @@ const IndexPage = () => (
      <div class="lg:hidden md:hidden sm: block ">
      <MobileView />
      </div>
-
-     <div class="py-10">
-     <SectionC />
-     </div>
-
-     {/* <TestThanks /> */}
-    
   </Layout>
 )
 
