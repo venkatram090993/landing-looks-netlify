@@ -17,6 +17,8 @@ import nightOutImg from "../images/martini.svg"
 import vacationImg from "../images/vacation.svg"
 
 import danceParty from "../images/girl.svg"
+import ImageSliderOne from "../images/slider1-1.png"
+
 
 
 const SectionC = () => {
@@ -160,6 +162,7 @@ const SectionC = () => {
               <img src={danceParty} alt="how to dress for a dance party" class="w-20 py-3 m-auto" />
               <h1 class="text-2xl lg:text-xl lg:py-2 m-auto">Dance party</h1>
             </div>
+
 
 
 

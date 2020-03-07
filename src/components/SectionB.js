@@ -7,6 +7,9 @@ import ImageSliderThree from "./Layout/ImageSliders/ImageSliderThree"
 import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour"
 import SectionC from './SectionC'
 import getFirebase from "../firebase"
+import client from '../../appsync';
+
+
 
 import { navigate } from "gatsby"
 
@@ -39,6 +42,24 @@ const SectionB = () => {
   //  counter()
 
   // })
+
+  const gql = require("graphql-tag")
+
+
+  const createdUser = gql`
+  mutation{
+    createUser(input:{
+      email:"",
+      referralCode:"",
+      case:"",
+      device:"",
+      browserDetail:"",
+      time:""
+    }){
+      id
+    }
+  }
+`
 
   const [caseID, setCaseID] = useState("")
 
@@ -78,26 +99,35 @@ const SectionB = () => {
 
 
   useEffect(() => {
+
+
+    var endpoint = 'http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query';
+
+    var xhr = new XMLHttpRequest();
+
+   
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+            let response = JSON.parse(this.responseText);
+
+            console.log("response", response)
+            
+            if(response.status !== 'success') {
+                console.log('query failed: ' + response.message);
+                return
+            }
+        
+    }}
+
+    xhr.open('GET', endpoint, true);
+    xhr.send();
+
+
+    
       
     const myStorage = window.localStorage
     const caseIDFromLocalStorage = myStorage.getItem("caseID")
-
-    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-      const database = getFirebase(firebase).firestore()
-
-      database
-        .collection("users")
-        .get()
-        .then(snapshot => {
-          let userDataArr = []
-          snapshot.docs.forEach(doc => {
-            userDataArr.push(doc.data())
-          })
-
-          setUserData(userDataArr)
-        })
-    })
-
 
 
     if (caseIDFromLocalStorage === null) {
@@ -129,7 +159,7 @@ const SectionB = () => {
   const [email, setEmail] = useState("")
   const [emailError, setEmailError] = useState(false)
 
-  const validateAndCheckOut = () => {
+  const validateAndCheckOut = async() => {
     const referralId = Math.random()
       .toString(36)
       .slice(-6)
@@ -143,40 +173,31 @@ const SectionB = () => {
 
         setButtonText("Adding to waiting list...")
 
+         const UpdatedCreatedUser = await client.hydrated().then(function(cl) {
+            const mutation = cl.mutate({
+              mutation: createdUser,
+              variables:  {
+                email: "",
+                referralCode: "",
+                case: "",
+                device: "",
+                browserDetail: "",
+                time: ""
+        },
+              fetchPolicy: "no-cache",
+            })
+            return mutation
+          })
+
 
         setTimeout(()=>{
-            navigate("/thankYouPage", {
+            navigate("/th", {
                 state: {
                   refId: referralId,
+                  device:"bigscreen"
                 },
               })
         },400)
-
-
-
-
-    //  for(let user of userData ){
-
-    //     if(user.emailID == email){
-    //         alert("user Exist")
-    //         return false;
-    //     }
-    //     else{
-    //     Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-    //         const database = getFirebase(firebase).firestore()
-    //         database
-    //           .collection("users")
-    //           .add({ emailID: email, referralId: referralId, case: caseID, device:"largeScreen", browserDetail: browser, time: userTime  })
-    //       })
-    
-         
-    //     }
-
-
-        
-
-    //  }
-
     } else {
       console.log("invalid")
       setEmailError(true)
@@ -220,7 +241,7 @@ const SectionB = () => {
     <div>
       <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
         <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
-        luxury fashion video blogging app.
+        luxury fashion video blog app.
       </p>
       <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
         Tryhaul, outfit ideas, style tips and more.
@@ -233,7 +254,7 @@ const SectionB = () => {
       <div>
         <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center font-serif">
           <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
-          luxury fashion video blogging app.
+          luxury fashion vlog app.
         </p>
         <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
           Tryhaul, outfit ideas, style tips and more.
@@ -245,7 +266,7 @@ const SectionB = () => {
       <div>
         <p class="lg:text-6xl md:text-3xl md:mt-2 leading-normal text-white sm: text-2xl text-center font-serif">
           <span class="sm: font-bold lg:font-bold text-green-600">Looks</span>,
-          sassy new way to post fashion V-blogs. 
+          fashion vlog app.
         </p>
         <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
           Tryhaul, outfit ideas, style tips and more.
@@ -272,7 +293,7 @@ const SectionB = () => {
 
           <ImageSliderFour />
 
-          <div class="xl:w-7/12 lg:w-11/12 sm: w-6/12 p-12 md:py-5 rounded-lg lead-gen-div">
+          <div class="xl:w-6/12 lg:w-11/12 sm: w-6/12 p-12 md:py-5 rounded-lg lead-gen-div">
             {descriptionBlock}
             <form
               onSubmit={e => {
@@ -284,7 +305,7 @@ const SectionB = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  class="lg:w-5/12 placeholder-indigo-800 pl-5 lg:m-0 lg:rounded-l-full h-10 p-2 text-indigo-600 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center sm: rounded-md"
+                  class="lg:w-6/12 lg:mr-2 placeholder-indigo-800 lg:pb-1 pl-5 lg:m-0 h-10 text-indigo-600 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center lg:rounded-sm sm: rounded-md"
                   onChange={event => {
                     setEmail(event.target.value)
                     console.log(email)
@@ -295,19 +316,19 @@ const SectionB = () => {
                 />
 
                 <div
+                
                   role="button"
                   onClick={() => {
                     validateAndCheckOut()
                   }}
-                  style={{ background: "#19328C" }}
-                  class=" cursor-pointer lg:m-0 lg:w-4/12 lg:rounded-r-full  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
+                  class="cursor-pointer lg:m-0 lg:w-4/12 lg:rounded-sm  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                 >
                   <img src={sendImg} class="w-8 mr-2" alt="get early access" />
-                  <p class="lg:text-base pr-2 text-white">{buttonText}</p>
+                  <p class="lg:text-base pr-2">{buttonText}</p>
                 </div>
               </div>
             </form>
-            <div class="flex justify-center flex-row my-5 text-white text-center text-3xl"><p>Launch in April.</p></div>
+            <div class="flex justify-center flex-row my-5 text-white text-center text-3xl"><p>Coming Soon...</p></div>
           </div>
           {/* <div class="w-64 h-64 bg-blue-700 absolute">
               
@@ -316,7 +337,6 @@ const SectionB = () => {
         </div>
       </div>
     </div>
-
     <SectionC />
     </div>
   )

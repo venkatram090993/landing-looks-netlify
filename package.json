@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "aos": "^2.3.4",
+    "aws-appsync": "^3.0.2",
     "firebase": "^7.9.3",
     "gatsby": "^2.19.7",
     "gatsby-cli": "^2.9.0",
@@ -18,6 +19,7 @@
     "gatsby-plugin-sharp": "^2.4.3",
     "gatsby-source-filesystem": "^2.1.46",
     "gatsby-transformer-sharp": "^2.3.13",
+    "graphql-tag": "^2.10.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-ab-test": "^2.0.1",

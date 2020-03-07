@@ -77,7 +77,7 @@ const MobileView = () => {
         setButtonClicked(true)
 
         setTimeout(()=>{
-          navigate("/thankYouPage",{state:{device : "mobile", refId: referralId}})
+          navigate("/th",{state:{device : "mobile", refId: referralId}})
         },600)
 
     } else {

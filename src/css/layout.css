@@ -636,7 +636,7 @@ pre tt:after {
     flex-direction: column;
     justify-content: space-evenly;
     height: auto;
-    top:70%;
+    top:65%;
     left:50%;
     transform: translate(-50%,-50%);
     
@@ -929,14 +929,6 @@ pre tt:after {
 
 }
 
-.thanks-div{
-    
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-58%);
-    
-}
 
 @media screen and (max-width:475px){
 
@@ -1112,3 +1104,24 @@ pre tt:after {
 
 #select::selection { background: transparent;
                         border: transparent; }
+
+
+.headerButton{
+    background: #3e28a1;   
+    position: relative;
+    transition: all 0.6s ease-in-out;
+    color:white;
+    font-weight: 400;
+    
+ }
+
+ .headerButton:hover{
+     box-shadow: inset 0 0 0 20px RGBA(72,52, 212,0.7);
+ }
+
+ /* background: #;    */
+
+ /*  */
+
+ /* background: #d4349f;   
+ box-shadow: inset 0 0 0 20px #b321ab; */

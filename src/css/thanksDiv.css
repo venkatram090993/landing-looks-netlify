@@ -1,0 +1,37 @@
+.thankYou-new-bg{
+
+ background-size: contain;
+ background-repeat: no-repeat;
+    
+
+}
+
+
+.thanks-div{
+    background: RGBA(0,0,0,0.6) ;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-58%);
+    
+}
+
+
+@media screen and (max-width:425px){
+
+    .thankYou-new-bg{
+
+        background-size: contain; 
+        background-repeat: no-repeat;
+           
+       
+       }
+
+    .thanks-div{
+
+        top:68%;
+        left:50%;
+        transform: translate(-50%,-58%);
+        
+    }
+}
