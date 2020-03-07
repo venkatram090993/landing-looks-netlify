@@ -159,7 +159,7 @@ const SectionB = () => {
   const [email, setEmail] = useState("")
   const [emailError, setEmailError] = useState(false)
 
-  const validateAndCheckOut = async() => {
+  const validateAndCheckOut = () => {
     const referralId = Math.random()
       .toString(36)
       .slice(-6)
@@ -173,31 +173,44 @@ const SectionB = () => {
 
         setButtonText("Adding to waiting list...")
 
-         const UpdatedCreatedUser = await client.hydrated().then(function(cl) {
-            const mutation = cl.mutate({
-              mutation: createdUser,
-              variables:  {
-                email: "",
-                referralCode: "",
-                case: "",
-                device: "",
-                browserDetail: "",
-                time: ""
-        },
-              fetchPolicy: "no-cache",
-            })
-            return mutation
-          })
-
+        //  const UpdatedCreatedUser = client.hydrated().then(function(cl) {
+        //     cl.mutate({
+        //       mutation: createdUser,
+        //       variables:  {
+        //         email: "111111111",
+        //         referralCode: "",
+        //         case: "",
+        //         device: "",
+        //         browserDetail: "",
+        //         time: ""
+        // },
+        //       fetchPolicy: "no-cache",
+        //     }).then((result)=>{
+        //         console.log("result appsync",result);
+        //         setTimeout(()=>{
+        //             navigate("/th", {
+        //                 state: {
+        //                   refId: referralId,
+        //                   device:"bigscreen"
+        //                 },
+        //               })
+        //         },400)
+        //     }).catch((err)=>{
+        //         console.log(err);
+        //       });
+        //   }).catch((err)=>{
+        //     console.log(err);
+        //   });
 
         setTimeout(()=>{
-            navigate("/th", {
-                state: {
-                  refId: referralId,
-                  device:"bigscreen"
-                },
-              })
-        },400)
+                        // navigate("/th", {
+                        //     state: {
+                        //       refId: referralId,
+                        //       device:"bigscreen"
+                        //     },
+                        //   })
+                    },400)
+       
     } else {
       console.log("invalid")
       setEmailError(true)
@@ -305,7 +318,7 @@ const SectionB = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  class="lg:w-6/12 lg:mr-2 placeholder-indigo-800 lg:pb-1 pl-5 lg:m-0 h-10 text-indigo-600 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center lg:rounded-sm sm: rounded-md"
+                  class="lg:w-8/12 lg:mr-2 placeholder-indigo-800 lg:pb-1 pl-5 lg:m-0 h-10 text-indigo-600 lg:text-xl lg:text-left md:text-left sm: mb-5 sm: w-full sm: m-auto sm: text-center lg:rounded-sm sm: rounded-md"
                   onChange={event => {
                     setEmail(event.target.value)
                     console.log(email)
@@ -321,7 +334,7 @@ const SectionB = () => {
                   onClick={() => {
                     validateAndCheckOut()
                   }}
-                  class="cursor-pointer lg:m-0 lg:w-4/12 lg:rounded-sm  h-10 py-2 px-2 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
+                  class="cursor-pointer lg:m-0 lg:w-5/12 lg:rounded-sm  h-10 py-2 px-1 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                 >
                   <img src={sendImg} class="w-8 mr-2" alt="get early access" />
                   <p class="lg:text-base pr-2">{buttonText}</p>

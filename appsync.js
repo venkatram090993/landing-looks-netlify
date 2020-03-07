@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
-import awsconfig from './aws-exports';
 
 
 const client = new AWSAppSyncClient({
