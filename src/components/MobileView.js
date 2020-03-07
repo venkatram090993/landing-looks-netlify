@@ -1,42 +1,85 @@
 import React, { useEffect, useState } from "react"
 import "../css/layout.css"
-import getFirebase from "../firebase"
 import sendImg from "../images/plane.svg"
 import sliderOneImageOne from "../images/slider1-1.png"
 import { navigate } from "gatsby"
-import SectionC from './SectionC'
-
+import SectionC from "./SectionC"
+import client from "../../appsync"
 
 const MobileView = () => {
+  const gql = require("graphql-tag")
+
+  // const createdUser = gql`
+  //   mutation createUser(
+  //           $email: String!
+  //   $referralCode: String!
+  //   $case: String!
+  //   $device: String!
+  //   $browserDetails: AWSJSON!
+  //   $time: String!
+  //       )
+  //       {
+  //     createUser(
+  //       input: {
+  //         email: $email
+  //         referralCode: $referralCode
+  //         case: $case
+  //         device: $device
+  //         browserDetails: $browserDetails
+  //         time: $time
+  //       }
+  //     ) {
+  //       id
+  //     }
+  //   }
+  // `
+
+  const [browser, setBrowser] = useState("unable to define")
+
   const [caseID, setCaseID] = useState("")
 
-  const [userData, setUserData] = useState([])
-
   const [buttonClicked, setButtonClicked] = useState(false)
-
   useEffect(() => {
     const myStorage = window.localStorage
-
     const caseIDFromLocalStorage = myStorage.getItem("caseID")
 
-    // Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-    //   const database = getFirebase(firebase).firestore()
+    if (!caseIDFromLocalStorage) {
+      var endpoint =
+        "http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
 
-    //   database
-    //     .collection("users")
-    //     .get()
-    //     .then(snapshot => {
-    //       let userDataArr = []
-    //       snapshot.docs.forEach(doc => {
-    //         userDataArr.push(doc.data())
-    //       })
+      var xhr = new XMLHttpRequest()
 
-    //       setUserData(userDataArr)
-    //     })
-    // })
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let response = JSON.parse(this.responseText)
 
-    if (caseIDFromLocalStorage === null) {
-      const caseIDValue = Math.floor(Math.random() * 2)
+          console.log("response", response)
+
+          const userDetaisFromIpAPI = JSON.stringify(response)
+          console.log("userDetaisFromIpAPI", userDetaisFromIpAPI)
+
+          const parsedBrowserDetails = userDetaisFromIpAPI.replace(/"/g, '\\"')
+          console.log("parsedBrowserDetails", parsedBrowserDetails)
+
+          const ParsedBrowserWithQuotes = '"' + parsedBrowserDetails + '"'
+
+          console.log("ParsedBrowserWithQuotes", ParsedBrowserWithQuotes)
+
+          setBrowser(ParsedBrowserWithQuotes)
+
+          console.log("type parsed", typeof parsedBrowserDetails)
+
+          if (response.status !== "success") {
+            console.log("query failed: " + response.message)
+            return
+          }
+        }
+      }
+
+      xhr.open("GET", endpoint, true)
+      xhr.send()
+
+      const caseIDValue = Math.floor(Math.random() * 2).toString()
 
       myStorage.setItem("caseID", caseIDValue)
 
@@ -46,24 +89,10 @@ const MobileView = () => {
     }
   }, [])
 
-  useEffect(() => {
-    const lazyApp = import("firebase/app")
-    const lazyDatabase = import("firebase/firestore")
-
-    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-      const database = getFirebase(firebase).firestore()
-    })
-  })
-
-  const lazyApp = import("firebase/app")
-  const lazyDatabase = import("firebase/firestore")
-
   const [email, setEmail] = useState("")
   const [emailError, setEmailError] = useState(false)
 
   const validateAndCheckOut = () => {
-
-
     const referralId = Math.random()
       .toString(36)
       .slice(-6)
@@ -72,13 +101,57 @@ const MobileView = () => {
 
     let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
 
+          var currentTime = new Date().toString()
+
+
     if (email !== "" && regex.test(email)) {
+      setButtonClicked(true)
 
-        setButtonClicked(true)
+      
 
-        setTimeout(()=>{
-          navigate("/th",{state:{device : "mobile", refId: referralId}})
-        },600)
+    //   client()
+    //     .hydrated()
+    //     .then(function(cl) {
+    //       console.log(cl)
+
+    //       cl.mutate({
+    //         mutation: createdUser,
+    //         variables: {
+    //           email: email,
+    //           referralCode: referralId,
+    //           case: caseID,
+    //           device: "bigscreen",
+    //           browserDetails: browser,
+    //           time: currentTime,
+    //         },
+    //         fetchPolicy: "no-cache",
+    //       })
+    //         .then(result => {
+    //           alert("registered")
+
+    //           console.log("result appsync", result)
+    //           setTimeout(() => {
+    //             navigate("/th", {
+    //               state: { device: "mobile", refId: referralId },
+    //             })
+    //           }, 600)
+    //         })
+    //         .catch(err => {
+    //           console.log(err)
+    //         })
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+
+      console.log("caseID", caseID)
+      console.log("browser", browser)
+      console.log("time", currentTime)
+      setTimeout(() => {
+                    navigate("/th", {
+                      state: { device: "mobile", refId: referralId },
+                    })
+                  }, 600)
 
     } else {
       console.log("invalid")
@@ -128,96 +201,91 @@ const MobileView = () => {
   }
 
   return (
-
     <div>
-
-
-
-
-    
-    <div class="flex flex-col justify-center container-div">
-      {/* <div class="relative h-screen"> */}
+      <div class="flex flex-col justify-center container-div">
+        {/* <div class="relative h-screen"> */}
         {alertBox}
-      {/* </div> */}
-      <div
-      style={{background: "rgba(0,0,0,0.5)", marginTop:"220px", marginBottom:"165px"}}
-        class="w-11/12 py-5 m-auto"
-        data-aos="zoom-in"
-        data-aos-duration="1200"
-        data-aos-delay="1800"
-        id="lead-div"
-        
-      >
-        <p class="leading-normal text-white text-4xl text-center">
-          <span class="font-bold text-green-600">Looks</span>, luxury fashion video blogging app.
-        </p>
-        <p class="leading-normal text-white text-xl my-6 text-center px-2">
-          Tryhaul, outfit ideas, style tips and more.
-        </p>
-        <div class="flex mt-5 flex-col w-5/6 m-auto">
-            <form  onSubmit={(e)=>{
-            e.preventDefault();
-            validateAndCheckOut();
-            }}>
-            <input
-            class="h-10 p-2 text-black mb-5 w-full m-auto text-center rounded-md"
-            placeholder="Enter your email"
-            onChange={event => {
-              setEmail(event.target.value)
-              console.log(email)
-            }}
-            onClick={() => {
-             setEmailError(false)
-            }}
-          />
+        {/* </div> */}
+        <div
+          style={{
+            background: "rgba(0,0,0,0.5)",
+            marginTop: "220px",
+            marginBottom: "165px",
+          }}
+          class="w-11/12 py-5 m-auto"
+          data-aos="zoom-in"
+          data-aos-duration="1200"
+          data-aos-delay="1800"
+          id="lead-div"
+        >
+          <p class="leading-normal text-white text-4xl text-center">
+            <span class="font-bold text-green-600">Swank</span>, luxury fashion
+            vlog app.
+          </p>
+          <p class="leading-normal text-white text-xl my-6 text-center px-2">
+            Tryhaul, outfit ideas, style tips and more.
+          </p>
+          <div class="flex mt-5 flex-col w-5/6 m-auto">
+            <form
+              onSubmit={e => {
+                e.preventDefault()
+                validateAndCheckOut()
+              }}
+            >
+              <input
+                class="h-10 p-2 text-black mb-5 w-full m-auto text-center rounded-md"
+                placeholder="Enter your email"
+                onChange={event => {
+                  setEmail(event.target.value)
+                  console.log(email)
+                }}
+                onClick={() => {
+                  setEmailError(false)
+                }}
+              />
             </form>
-         
-          {
 
-              buttonClicked ?  <div
-              class=" cursor-pointer bg-blue-900 h-10 py-2 px-1 flex flex-row justify-center w-10/12 m-auto pointer-events-none ">
-              {/* <img src={sendImg} class="w-8 mr-1 " /> */}
-              <p
-                class="lg:text-base pr-2 text-white"
+            {buttonClicked ? (
+              <div class=" cursor-pointer bg-blue-900 h-10 py-2 px-1 flex flex-row justify-center w-10/12 m-auto pointer-events-none ">
+                {/* <img src={sendImg} class="w-8 mr-1 " /> */}
+                <p class="lg:text-base pr-2 text-white">
+                  Adding to waiting list...
+                </p>
+              </div>
+            ) : (
+              <div
+                style={{ background: "#19328C" }}
+                class=" cursor-pointer h-10 py-2 px-1 flex flex-row justify-center w-10/12 rounded-md m-auto "
+                onClick={() => {
+                  validateAndCheckOut()
+                }}
               >
-               Adding to waiting list...
-              </p>
-            </div> :
-             <div
-             style={{ background: "#19328C" }}
-             class=" cursor-pointer h-10 py-2 px-1 flex flex-row justify-center w-10/12 rounded-md m-auto "
-             onClick={() => {
-                validateAndCheckOut();
-               }}
-           >
-             <img src={sendImg} class="w-8 mr-1 " />
-             <p
-               class="lg:text-base pr-2 text-white"
-             >
-                  Get Early Access  
-             </p>
-           </div>
-          }
+                <img src={sendImg} class="w-8 mr-1 " />
+                <p class="lg:text-base pr-2 text-white">Get Early Access</p>
+              </div>
+            )}
+          </div>
+
+          <div class="flex justify-center flex-row my-5 text-white text-center text-3xl">
+            <p>Launch in April.</p>
+          </div>
         </div>
-
-        <div class="flex justify-center flex-row my-5 text-white text-center text-3xl"><p>Launch in April.</p></div>
       </div>
-    </div>
 
-    <SectionC />
-
+      <SectionC />
     </div>
   )
 }
 
 export default MobileView
 
-
- {/* <img
+{
+  /* <img
           src={sliderOneImageOne}
           class="h-screen w-full" 
           alt="prettyGirl-1"
           data-aos="zoom-in"
           data-aos-duration="1700"
           data-aos-delay="300"
-        /> */}
+        /> */
+}

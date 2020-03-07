@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Swank`,
+    description: `Luxury fashion video blogging app. Inspire the world with your fashion short video reviews.`,
+    author: `Pipesort Technologies`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -14,6 +14,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+        resolve: 'gatsby-plugin-web-font-loader',
+        options: {
+          google: {
+            families: ['Droid Sans', 'Droid Serif', 'Roboto']
+          }
+        }
+      },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

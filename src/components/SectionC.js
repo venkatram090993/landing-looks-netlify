@@ -36,14 +36,16 @@ const SectionC = () => {
   })
 
   return (
-    <div class="lg:w-full sm: h-auto lg:py-1   sm: py-10 flex lg:flex-row sm: flex-col font-sans md:flex-col md:h-auto ">
+    <div class="lg:w-full sm: h-auto lg:py-32 sm: py-10 flex lg:flex-row sm: flex-col font-sans md:flex-col md:h-auto ">
+
+        <p style={{fontFamily:"Montserrat"}} class="text-5xl md:mb-0 sm: mb-10  text-gray-900 text-center lg:hidden md:block sm: block">Sneak Peak</p>
       <div class="flex lg:flex-row align-middle lg:w-2/6 justify-center md:w-4/6  md:m-auto md:pt-20">
-        <img src={gifImage} class="gifImage lg:-mt-8 lg:pb-10" alt="Demo try on haul app" />
+        <img src={gifImage} class="gifImage lg:-mt-8 md:-mt-10 lg:pb-10" alt="Demo try on haul app" />
       </div>
 
-      <div class="flex flex-col lg:w-4/6 sm: h-auto lg:py-2 px-20 md:py-0 text-gray-600 md:w-full ">
-        <h1 class="md:py-3 text-4xl font-bold text-center md:py-10 sm: py-10">
-          A new way to vlog your fashion reviews
+      <div class="flex flex-col lg:w-4/6 sm: h-auto lg:py-2 px-20 md:py-0 text-gray-800 md:w-full ">
+        <h1 style={{fontFamily:"Montserrat"}}class=" font-serif lg:py-2 md:py-3 text-5xl  text-center md:py-10 sm: py-10 ">
+          Inspire people with your fashion vlogs.
         </h1>
 
         <div class="flex flex-row justify-around">

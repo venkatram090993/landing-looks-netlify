@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../css/layout.css"
-import getFirebase from "../firebase"
 import sendImg from "../images/plane.svg"
 import sliderOneImageOne from "../images/slider1-1.png"
-import { navigate } from "gatsby"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import "../css/c.css"
@@ -12,7 +10,7 @@ import shareIcon from "../images/share.svg"
 
 import cracker from "../images/congratulation.svg"
 import sparkle from "../images/clean.svg"
-import puppyImage from '../images/cute-puppy.gif'
+import puppyImage from '../images/newDogieGif.gif'
 
 import {
   WhatsappIcon,
@@ -92,7 +90,7 @@ const Rewards = (props) => {
     class="rounded-md z-20 at-looks flex flex-row"
   >
     <p class=" font-semibold mx-2 text-3xl"  id="at-looks-id">
-      #Looks
+      #getSwanky
     </p>{" "}
   </div>
     
@@ -215,8 +213,8 @@ const Rewards = (props) => {
           id="bottomSheet"
           class="flex flex-col w-1/2 m-auto justify-center rounded-t-lg py-5 mt-5"
         >
-            <img src={puppyImage} class="w-5/12 h-28 m-auto" /> 
-          <p class="text-xl m-auto mt-5 text-green-700 px-5 text-center "><i>Take a screenshot and share it with your friends.</i></p>
+            <img src={puppyImage} class="w-2/6 m-auto" /> 
+          <p class="text-xl m-auto mt-5 text-gray-900 px-5 text-center ">Take a screenshot and share it with your friends.</p>
         </div>
       </div>
     </div>

@@ -1,7 +1,4 @@
 import React from'react';
-import wreathImg from "../../images/wreath.svg"
-import { navigate } from "gatsby"
-import clipboard from '../../images/paste.svg'
 import "../../css/thanksDiv.css"
 
 

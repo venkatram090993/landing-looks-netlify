@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import {Link} from 'gatsby';
 
 const Footer = () =>{
+
 
     return(
 
@@ -12,22 +14,19 @@ const Footer = () =>{
             <div class="w-2/6 py-5 h-full w-full lg:text-left md:text-left xs: text-center md:px-5">
                 <ul class="leading-loose sm: margin-auto">
                 <li><b>Company</b></li>
-                <li>About</li>
-                <li>Career</li>
+                <Link to="/about"><li>About</li></Link>
                 </ul>
             </div>
 
             <div class="w-3/6 py-5 h-full w-full lg:text-left md:text-left xs: text-center md:px-5 ">
             <ul class="leading-loose">
             <li><b>Legal</b></li>
-                <li>Cookies Policy</li>
-                <li>Intellectual Property Policy</li>
-                <li>Law Enforcement</li>
-                <li>Privacy Policy</li>
-                <li>Terms & Condition</li>
+               <Link to="/po"> <li>Cookies Policy</li></Link> 
+               <Link to="/po"> <li>Intellectual Property Policy</li></Link> 
+                <Link to="/po"><li>Privacy Policy</li></Link>
+                <Link to="/po"><li>Terms & Condition</li></Link>
             </ul>
             </div>
-
             <div class="w-2/6 py-5 h-full w-full lg:text-left md:text-left xs: text-center md:px-5 ">
             <ul class="leading-loose">
             <li><b>Other Works</b></li>

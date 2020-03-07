@@ -4,12 +4,17 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import MobileView from "../components/MobileView"
 import SectionB from "../components/SectionB"
-import SectionC from "../components/SectionC"
+import { Helmet } from "react-helmet"
+
 
 
 
 const IndexPage = () => (
   <Layout>
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Swank</title>
+        </Helmet>
     <SEO title="Home" />
     <div class="lg:block md:block sm: hidden">
      <SectionB />
