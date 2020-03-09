@@ -11,47 +11,67 @@ import client from "../../appsync"
 import { navigate } from "gatsby"
 
 const SectionB = () => {
-    const gql = require("graphql-tag")
+  const gql = require("graphql-tag")
 
-    const createdUser = gql`
-      mutation createUser(
-              $email: String!
-      $referralCode: String!
-      $case: String!
-      $device: String!
-      $browserDetails: AWSJSON!
-      $time: String!
-          )
-          {
-        createUser(
-          input: {
-            email: $email
-            referralCode: $referralCode
-            case: $case
-            device: $device
-            browserDetails: $browserDetails
-            time: $time
-          }
-        ) {
-          id
+  const createdUser = gql`
+    mutation createUser(
+            $email: String!
+    $referralCode: String!
+    $case: String!
+    $device: String!
+    $browserDetails: AWSJSON!
+    $time: String!
+        )
+        {
+      createUser(
+        input: {
+          email: $email
+          referralCode: $referralCode
+          case: $case
+          device: $device
+          browserDetails: $browserDetails
+          time: $time
         }
+      ) {
+        id
       }
-    `
+    }
+  `
+
+  const createdVisitor = gql`
+    mutation createVisitor(
+      $referrer: String
+      $marketerId: String
+      $browserDetails: AWSJSON
+      $time: String
+    ) {
+      createVisitor(
+        input: {
+          referrer: $referrer
+          marketerId: $marketerId
+          browserDetails: $browserDetails
+          time: $time
+        }
+      ) {
+        id
+      }
+    }
+  `
 
   const [caseID, setCaseID] = useState("")
 
   const [userData, setUserData] = useState([])
- 
 
   const [browser, setBrowser] = useState("unable to define")
 
-
   const [userTime, setUserTime] = useState("")
 
-
   const [buttonText, setButtonText] = useState("Get Early Access")
- 
+  const [marketerId, setMarketerId] = useState("")
+  const [referrerId, setreferrerId] = useState("")
 
+
+  const [refId, setRefId] = useState("")
 
   function detectBrowser() {
     const browserArray = [
@@ -80,10 +100,43 @@ const SectionB = () => {
   // To check if the caseid is stored in the local storage. if no, get the browser details with the ip-api
 
   useEffect(() => {
+    const urlFromLocation = window.location.href
+
+    const newURL = new URL(urlFromLocation)
+
+    console.log(newURL.searchParams.has("marketerId"))
+
+    let marketerIdFromLocation;
+    
+    let referrerIdFromLocation;
+
+    if (newURL.searchParams.has("marketerId")) {
+         marketerIdFromLocation = newURL.searchParams.get("marketerId").toString()
+        console.log(marketerIdFromLocation);
+        setMarketerId(marketerIdFromLocation)
+      } 
+
+      if (newURL.searchParams.has("referrer")) {
+        referrerIdFromLocation = newURL.searchParams.get("referrerId").toString()
+       console.log(referrerIdFromLocation);
+       setreferrerId(referrerIdFromLocation)
+     } 
+
+    const currentTime = new Date().toString()
+
     const myStorage = window.localStorage
     const caseIDFromLocalStorage = myStorage.getItem("caseID")
 
-    if (caseIDFromLocalStorage) {
+    const dataFromLocalStorage = myStorage.getItem("dataFromLocalStorage")
+
+    let ParsedBrowserWithQuotes
+
+    if (!caseIDFromLocalStorage || !dataFromLocalStorage) {
+      const caseIDValue = Math.floor(Math.random() * 2).toString()
+
+      myStorage.setItem("caseID", caseIDValue)
+      setCaseID(caseIDValue)
+
       var endpoint =
         "http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
 
@@ -101,37 +154,62 @@ const SectionB = () => {
 
         
           const parsedBrowserDetails = userDetaisFromIpAPI.replace(/"/g, '\\"');
+
           console.log("parsedBrowserDetails", parsedBrowserDetails);
 
-          const ParsedBrowserWithQuotes = '"' + parsedBrowserDetails +'"';
-          
-          console.log("ParsedBrowserWithQuotes", ParsedBrowserWithQuotes)
+          ParsedBrowserWithQuotes = '"' + parsedBrowserDetails +'"';
 
 
-          setBrowser(parsedBrowserDetails)
-          console.log("type parsed",typeof(parsedBrowserDetails))
-          
-          
+          setBrowser(ParsedBrowserWithQuotes);
+
+
+          myStorage.setItem("dataFromLocalStorage", ParsedBrowserWithQuotes)
+
+        client()
+        .hydrated()
+        .then(function(cl) {
+          console.log(cl)
+
+        cl.mutate({
+            mutation: createdVisitor,
+            variables: {
+
+                referrer: referrerId,
+                marketerId: marketerIdFromLocation,
+            browserDetails: ParsedBrowserWithQuotes,
+            time: currentTime,
+             },
+              fetchPolicy: "no-cache",
+            })
+           .then(result => {
+
+                console.log("result appsync", result)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
 
           if (response.status !== "success") {
             console.log("query failed: " + response.message)
             return
           }
+
+          
         }
       }
 
       xhr.open("GET", endpoint, true)
-      xhr.send()
+      xhr.send();
 
-      const caseIDValue = Math.floor(Math.random() * 2).toString();
-
-      myStorage.setItem("caseID", caseIDValue)
-
-      setCaseID(caseIDValue)
     } else {
       setCaseID(caseIDFromLocalStorage)
+      setBrowser(dataFromLocalStorage)
     }
-
     detectBrowser()
   }, [])
 
@@ -139,77 +217,69 @@ const SectionB = () => {
   const [emailError, setEmailError] = useState(false)
 
   const validateAndCheckOut = () => {
-    const referralId = Math.random()
-      .toString(36)
-      .slice(-6)
-
-    console.log("random===>", referralId)
-
-  
-
     let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
 
     if (email !== "" && regex.test(email)) {
       setButtonText("Adding to waiting list...")
 
-      var currentTime = new Date().toString()
+      
+    const referralId = Math.random()
+    .toString(36)
+    .slice(-6)
+
+  setRefId(referralId)
 
 
-    //     client()
-    //       .hydrated()
-    //       .then(function(cl) {
-    //         console.log(cl)
+      const currentTime = new Date().toString()
 
-    //         cl.mutate({
-    //           mutation: createdUser,
-    //           variables: {
-    //             email: email,
-    //             referralCode: referralId,
-    //             case: caseID,
-    //             device: "bigscreen",
-    //             browserDetails: browser,
-    //             time: currentTime,
-    //           },
-    //           fetchPolicy: "no-cache",
-    //         })
-    //           .then(result => {
+      client()
+      .hydrated()
+      .then(function(cl) {
+        console.log(cl)
 
-    //             alert("registered")
+      cl.mutate({
+          mutation: createdUser,
+          variables: {
+          email: email,
+      referralCode: referralId,
+          case: caseID,
+          device: "bigscreen",
+          browserDetails: browser,
+          time: currentTime,
+           },
+            fetchPolicy: "no-cache",
+          })
+         .then(result => {
 
-    //             console.log("result appsync", result)
+              console.log("result appsync", result)
 
-    //             setTimeout(() => {
-    //               navigate("/th", {
-    //                 state: {
-    //                   refId: referralId,
-    //                   device: "bigscreen",
-    //                 },
-    //               })
-    //             }, 400)
-    //           })
-    //           .catch(err => {
-    //             console.log(err)
-    //           })
-    //       })
-    //       .catch(err => {
-    //         console.log(err)
-    //       })
+              setTimeout(() => {
+                navigate("/th", {
+                  state: {
+        refId: referralId,
+                    device: "bigscreen",
+                  },
+                })
+              }, 400)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(err => {
+          console.log(err)
+        })
 
-    //   setTimeout(() => {
-    //     navigate("/th", {
-    //       state: {
-    //         refId: referralId,
-    //         device: "bigscreen",
-    //       },
-    //     })
-    //   }, 400)
+      console.log(browser)
 
-    
-    console.log("caseID", caseID)
-    console.log("userData", userData)
-    console.log("browser", browser)
-    console.log("time", currentTime)
-
+      setTimeout(() => {
+        navigate("/th", {
+          state: {
+            refId: referralId,
+            device: "bigscreen",
+          },
+        })
+      }, 400)
     } else {
       console.log("invalid")
       setEmailError(true)
@@ -219,10 +289,7 @@ const SectionB = () => {
     }
   }
 
-
-
-
-let alertBox = null
+  let alertBox = null
 
   if (emailError) {
     alertBox = (
@@ -253,7 +320,7 @@ let alertBox = null
   let descriptionBlock = (
     <div>
       <p class="lg:text-6xl md:text-5xl leading-normal text-white sm: text-2xl text-center font-serif">
-        <span class="sm: font-bold lg:font-bold text-green-600">Swank</span>,
+        <span class="sm: font-bold lg:font-bold text-green-600">Swanky</span>,
         luxury fashion video blog app.
       </p>
       <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
@@ -266,7 +333,7 @@ let alertBox = null
     descriptionBlock = (
       <div>
         <p class="lg:text-6xl md:text-5xl leading-normal text-white sm: text-2xl text-center font-serif">
-          <span class="sm: font-bold lg:font-bold text-green-600">Swank</span>,
+          <span class="sm: font-bold lg:font-bold text-green-600">Swanky</span>,
           luxury fashion vlog app.
         </p>
         <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
@@ -278,7 +345,7 @@ let alertBox = null
     descriptionBlock = (
       <div>
         <p class="lg:text-6xl md:text-5xl md:mt-2 leading-normal text-white sm: text-2xl text-center font-serif">
-          <span class="sm: font-bold lg:font-bold text-green-600">Swank</span>,
+          <span class="sm: font-bold lg:font-bold text-green-600">Swanky</span>,
           fashion vlog app.
         </p>
         <p class="lg:text-2xl leading-normal text-white sm: text-xl  lg:mt-0 sm: mt-3 md:mt-2 text-center">
@@ -303,7 +370,7 @@ let alertBox = null
 
             <ImageSliderFour />
 
-            <div class="xl:w-7/12  lg:px-16 sm: w-6/12 p-12 md:py-5 rounded-lg lead-gen-div">
+            <div class="xl:w-7/12 lg:w-8/12  lg:px-20 sm: w-6/12 p-12 md:py-5 rounded-lg lead-gen-div">
               {descriptionBlock}
               <form
                 onSubmit={e => {
@@ -315,7 +382,7 @@ let alertBox = null
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    class="lg:w-8/12 lg:mr-2 placeholder-indigo-800 lg:pb-1 pl-5 lg:m-0 h-10 text-indigo-600 lg:text-xl lg:text-left md:text-left md:w-10/12 sm: mb-5 sm: w-full sm: m-auto sm: text-center lg:rounded-sm sm: rounded-md"
+                    class="lg:w-8/12 lg:mr-2 lg:pb-1 pl-5 lg:m-0 h-10 text-gray-800 lg:text-xl lg:text-left md:text-left md:w-10/12 sm: mb-5 sm: w-full sm: m-auto sm: text-center lg:rounded-sm sm: rounded-md"
                     onChange={event => {
                       setEmail(event.target.value)
                       console.log(email)
@@ -330,7 +397,7 @@ let alertBox = null
                     onClick={() => {
                       validateAndCheckOut()
                     }}
-                    class="cursor-pointer lg:m-0 lg:w-5/12 lg:rounded-sm md:w-7/12  h-10 py-2 px-1 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
+                    class="cursor-pointer lg:m-0 xl:5/12 lg:w-6/12 lg:rounded-sm md:w-7/12  h-10 py-2 px-1 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                   >
                     <img
                       src={sendImg}

@@ -13,7 +13,7 @@ const IndexPage = () => (
   <Layout>
       <Helmet>
           <meta charSet="utf-8" />
-          <title>Swank</title>
+          <title>Swanky</title>
         </Helmet>
     <SEO title="Home" />
     <div class="lg:block md:block sm: hidden">

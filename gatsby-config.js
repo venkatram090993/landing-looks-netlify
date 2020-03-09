@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Swank`,
+    title: `Swanky`,
     description: `Luxury fashion video blogging app. Inspire the world with your fashion short video reviews.`,
     author: `Pipesort Technologies`,
   },
@@ -27,12 +27,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
+        name: `Swanky`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
+        icon:`src/images/gatsby-icon.png`,
       },
     },
 

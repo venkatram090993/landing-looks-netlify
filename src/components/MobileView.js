@@ -9,41 +9,95 @@ import client from "../../appsync"
 const MobileView = () => {
   const gql = require("graphql-tag")
 
-  // const createdUser = gql`
-  //   mutation createUser(
-  //           $email: String!
-  //   $referralCode: String!
-  //   $case: String!
-  //   $device: String!
-  //   $browserDetails: AWSJSON!
-  //   $time: String!
-  //       )
-  //       {
-  //     createUser(
-  //       input: {
-  //         email: $email
-  //         referralCode: $referralCode
-  //         case: $case
-  //         device: $device
-  //         browserDetails: $browserDetails
-  //         time: $time
-  //       }
-  //     ) {
-  //       id
-  //     }
-  //   }
-  // `
+//   const createdUser = gql`
+//     mutation createUser(
+//             $email: String!
+//     $referralCode: String!
+//     $case: String!
+//     $device: String!
+//     $browserDetails: AWSJSON!
+//     $time: String!
+//         )
+//         {
+//       createUser(
+//         input: {
+//           email: $email
+//           referralCode: $referralCode
+//           case: $case
+//           device: $device
+//           browserDetails: $browserDetails
+//           time: $time
+//         }
+//       ) {
+//         id
+//       }
+//     }
+//   `
+
+// const createdVisitor = gql`
+// mutation createVisitor(
+//   $referrer: String!
+//   $marketerId: String!
+//   $browserDetails: AWSJSON!
+//   $time: String!
+// ) {
+//   createVisitor(
+//     input: {
+//       referrer: $referrer
+//       marketerId: $marketerId
+//       browserDetails: $browserDetails
+//       time: $time
+//     }
+//   ) {
+//     id
+//   }
+// }
+// `
+
+const [marketerId, setMarketerId] = useState("")
+
+const [refId, setRefId] = useState("")
 
   const [browser, setBrowser] = useState("unable to define")
 
-  const [caseID, setCaseID] = useState("")
+  const [caseID, setCaseID] = useState("");
+
+  let ParsedBrowserWithQuotes
 
   const [buttonClicked, setButtonClicked] = useState(false)
+  
+  
+  
   useEffect(() => {
+    const urlFromLocation = window.location.href
+
+    const newURL = new URL(urlFromLocation)
+
+    console.log(newURL.searchParams.has("marketerId"))
+
+    let marketerIdFromLocation;
+
+    if (newURL.searchParams.has("marketerId")) {
+         marketerIdFromLocation = newURL.searchParams.get("marketerId").toString()
+        console.log(marketerIdFromLocation);
+        setMarketerId(marketerIdFromLocation)
+      }
+
+    const currentTime = new Date().toString()
+
     const myStorage = window.localStorage
     const caseIDFromLocalStorage = myStorage.getItem("caseID")
 
-    if (!caseIDFromLocalStorage) {
+    const dataFromLocalStorage = myStorage.getItem("dataFromLocalStorage")
+
+    let ParsedBrowserWithQuotes
+
+    if (!caseIDFromLocalStorage || !dataFromLocalStorage) {
+      const caseIDValue = Math.floor(Math.random() * 2).toString()
+
+      myStorage.setItem("caseID", caseIDValue)
+      setCaseID(caseIDValue)
+
       var endpoint =
         "http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
 
@@ -55,57 +109,94 @@ const MobileView = () => {
 
           console.log("response", response)
 
-          const userDetaisFromIpAPI = JSON.stringify(response)
+          const userDetaisFromIpAPI = JSON.stringify(response);
           console.log("userDetaisFromIpAPI", userDetaisFromIpAPI)
+          
 
-          const parsedBrowserDetails = userDetaisFromIpAPI.replace(/"/g, '\\"')
-          console.log("parsedBrowserDetails", parsedBrowserDetails)
+        
+          const parsedBrowserDetails = userDetaisFromIpAPI.replace(/"/g, '\\"');
 
-          const ParsedBrowserWithQuotes = '"' + parsedBrowserDetails + '"'
+          console.log("parsedBrowserDetails", parsedBrowserDetails);
 
-          console.log("ParsedBrowserWithQuotes", ParsedBrowserWithQuotes)
+          ParsedBrowserWithQuotes = '"' + parsedBrowserDetails +'"';
 
-          setBrowser(ParsedBrowserWithQuotes)
 
-          console.log("type parsed", typeof parsedBrowserDetails)
+          setBrowser(ParsedBrowserWithQuotes);
+
+
+          myStorage.setItem("dataFromLocalStorage", ParsedBrowserWithQuotes)
+
+        //   client()
+        // .hydrated()
+        // .then(function(cl) {
+        //   console.log(cl)
+
+        // cl.mutate({
+        //     mutation: createdVisitor,
+        //     variables: {
+
+        //         referrer: refId,
+        //         marketerId: marketerIdFromLocation,
+        //     browserDetails: ParsedBrowserWithQuotes,
+        //     time: currentTime,
+        //      },
+        //       fetchPolicy: "no-cache",
+        //     })
+        //    .then(result => {
+
+        //         console.log("result appsync", result)
+        //       })
+        //       .catch(err => {
+        //         console.log(err)
+        //       })
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+
 
           if (response.status !== "success") {
             console.log("query failed: " + response.message)
             return
           }
+
+          
         }
       }
 
       xhr.open("GET", endpoint, true)
-      xhr.send()
+      xhr.send();
 
-      const caseIDValue = Math.floor(Math.random() * 2).toString()
-
-      myStorage.setItem("caseID", caseIDValue)
-
-      setCaseID(caseIDValue)
     } else {
       setCaseID(caseIDFromLocalStorage)
+      setBrowser(dataFromLocalStorage)
     }
   }, [])
 
+
+  
   const [email, setEmail] = useState("")
   const [emailError, setEmailError] = useState(false)
 
   const validateAndCheckOut = () => {
-    const referralId = Math.random()
-      .toString(36)
-      .slice(-6)
 
-    console.log("random===>", referralId)
-
+    
+ 
     let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
 
           var currentTime = new Date().toString()
 
 
+
     if (email !== "" && regex.test(email)) {
       setButtonClicked(true)
+
+      const referralId = Math.random()
+          .toString(36)
+          .slice(-6)
+    
+        setRefId(referralId);
+
 
       
 
@@ -118,7 +209,7 @@ const MobileView = () => {
     //         mutation: createdUser,
     //         variables: {
     //           email: email,
-    //           referralCode: referralId,
+            //   referralCode: refId,
     //           case: caseID,
     //           device: "bigscreen",
     //           browserDetails: browser,
@@ -127,12 +218,10 @@ const MobileView = () => {
     //         fetchPolicy: "no-cache",
     //       })
     //         .then(result => {
-    //           alert("registered")
-
     //           console.log("result appsync", result)
     //           setTimeout(() => {
     //             navigate("/th", {
-    //               state: { device: "mobile", refId: referralId },
+                //   state: { device: "mobile", refId: refId },
     //             })
     //           }, 600)
     //         })
@@ -144,12 +233,12 @@ const MobileView = () => {
     //       console.log(err)
     //     })
 
-      console.log("caseID", caseID)
-      console.log("browser", browser)
-      console.log("time", currentTime)
+    //   console.log("caseID", caseID)
+    //   console.log("browser", browser)
+    //   console.log("time", currentTime)
       setTimeout(() => {
                     navigate("/th", {
-                      state: { device: "mobile", refId: referralId },
+                      state: { device: "mobile", refId: refId },
                     })
                   }, 600)
 
@@ -219,7 +308,7 @@ const MobileView = () => {
           id="lead-div"
         >
           <p class="leading-normal text-white text-4xl text-center">
-            <span class="font-bold text-green-600">Swank</span>, luxury fashion
+            <span class="font-bold text-green-600">Swanky</span>, luxury fashion
             vlog app.
           </p>
           <p class="leading-normal text-white text-xl my-6 text-center px-2">

@@ -22,9 +22,9 @@ import clipboard from "../images/paste.svg"
 const ThankYouPage = props => {
   const [copySuccess, setCopySuccess] = useState("Copy")
   const [refId, setRefId] = useState("")
-  const [url, setUrl] = useState("http://looks.surge.sh/")
+  const [url, setUrl] = useState("http://looks.surge.sh/?ref=")
   const textAreaRef = useRef(null)
-  let shareUrl = "http://looks.surge.sh/"
+  let shareUrl = "http://looks.surge.sh/?ref="
 
 
   const [textChange, setTextChange] = useState(
@@ -34,11 +34,9 @@ const ThankYouPage = props => {
   const [isDelayed, setIsDelayed] = useState(false)
 
   useEffect(() => {
-
-
     shareUrl = "http://looks.surge.sh/" + props.refId
     setRefId(props.refId)
-    setUrl("http://looks.surge.sh?" + props.refId)
+    setUrl("http://looks.surge.sh/?ref=" + props.refId)
 
     let time = props.count
 

@@ -20,7 +20,7 @@ const Policy = () => {
       <div class="flex flex-row justify-between bg-transparent">
         <Link to="/">
           {" "}
-          <p class="lg:text-6xl md:text-6xl sm: text-5xl sm: ml-6 lg:ml-12 lg:mt-6 md:ml-12 md:mt-6 text-black"> Swank </p>{" "}
+          <p class="lg:text-6xl md:text-6xl sm: text-5xl sm: ml-6 lg:ml-12 lg:mt-6 md:ml-12 md:mt-6 text-black"> Swanky </p>{" "}
         </Link>
         <Link to="/">
           {" "}

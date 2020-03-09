@@ -79,7 +79,7 @@ const HeaderBlock = () => {
             
           >
             <p class="lg:text-6xl md:text-3xl leading-normal text-white sm: text-2xl text-center">
-              <span class="sm: font-bold lg:font-normal text-purple-400">Swank</span>, a sassy new way to fashion vlog.
+              <span class="sm: font-bold lg:font-normal text-purple-400">Swanky</span>, a sassy new way to fashion vlog.
             </p>
             <p class="lg:text-xl leading-normal text-white sm: text-xl lg:mt-2 sm: mt-3 md:mt-2 text-center">
               Short tryhaul, quick tutorials and more.

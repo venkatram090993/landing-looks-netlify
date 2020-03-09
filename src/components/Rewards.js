@@ -107,20 +107,19 @@ const Rewards = (props) => {
           alert("copied!!!")
         }}
         id="instaDiv"
-        style={{ background: "RGBA(180,180,180,0.5)", opacity: 0, paddingTop:"2px", paddingBottom:"2px" }}
-        class="text-center text-md text-white font-bold w-11/12 px-0  rounded-md z-20 showRefURL flex flex-row"
+        class="text-center sm:text-base text-white font-bold sm:w-11/12 sm:px-0  rounded-md z-20 showRefURL flex flex-row vsm:w-full vvsm: w-full "
       >
-        <p class="mx-2" id="elem">
-          check out{" "}
+        <p class="mx-0 sm:ml-3 vsm:ml-3 sm: mr-2 vsm:mr-2 sm:text-base vsm:text-base vvsm: text-sm vvsm: ml-0 " id="elem">
+          check out
         </p>{" "}
 
         <input
         id="select"
-          class="w-7/12 bg-transparent pointer-events-none"
+          class="sm:w-7/12 vsm:w-8/12 vvsm: w-7/12 bg-transparent pointer-events-none"
           ref={textAreaRef}
           value={url}
         />{" "}
-        <img src={cracker} class="w-6" /> <img src={sparkle} class="w-8 h-6" />
+        <img src={cracker} class="w-6 sm:-ml-2 " /> <img src={sparkle} class="w-8 h-6" />
       </div>
     )
   }

@@ -10,8 +10,8 @@ const ThanksPage = ({ location }) => {
 
 
   const [refId, setRefId] = useState("")
-  const [url, setUrl] = useState("http://looks.surge.sh/")
-  let shareUrl = "http://looks.surge.sh/"
+  const [url, setUrl] = useState("http://looks.surge.sh/?ref=")
+  let shareUrl = "http://looks.surge.sh/?ref="
 
 
   const counterTime = 1200;
@@ -31,9 +31,8 @@ const ThanksPage = ({ location }) => {
     const device = location.state.device;
 
     const { state } = location
-    shareUrl = "http://looks.surge.sh/" + state.refId
     setRefId(state.refId)
-    setUrl("http://looks.surge.sh?" + state.refId);
+    setUrl("http://looks.surge.sh?ref=" + state.refId);
     let timeOutCount =  (counterTime * 10) ;
     let timeOut;
 
