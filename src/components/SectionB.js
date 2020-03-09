@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import "../css/layout.css"
 import sendImg from "../images/plane.svg"
 import ImageSliderOne from "./Layout/ImageSliders/ImageSliderOne"
@@ -6,292 +6,40 @@ import ImageSliderTwo from "./Layout/ImageSliders/ImageSliderTwo"
 import ImageSliderThree from "./Layout/ImageSliders/ImageSliderThree"
 import ImageSliderFour from "./Layout/ImageSliders/ImageSliderFour"
 import SectionC from "./SectionC"
-import client from "../../appsync"
 
-import { navigate } from "gatsby"
-
-const SectionB = () => {
-  const gql = require("graphql-tag")
-
-  const createdUser = gql`
-    mutation createUser(
-            $email: String!
-    $referralCode: String!
-    $case: String!
-    $device: String!
-    $browserDetails: AWSJSON!
-    $time: String!
-        )
-        {
-      createUser(
-        input: {
-          email: $email
-          referralCode: $referralCode
-          case: $case
-          device: $device
-          browserDetails: $browserDetails
-          time: $time
-        }
-      ) {
-        id
-      }
-    }
-  `
-
-  const createdVisitor = gql`
-    mutation createVisitor(
-      $referrer: String
-      $marketerId: String
-      $browserDetails: AWSJSON
-      $time: String
-    ) {
-      createVisitor(
-        input: {
-          referrer: $referrer
-          marketerId: $marketerId
-          browserDetails: $browserDetails
-          time: $time
-        }
-      ) {
-        id
-      }
-    }
-  `
-
-  const [caseID, setCaseID] = useState("")
-
-  const [userData, setUserData] = useState([])
-
-  const [browser, setBrowser] = useState("unable to define")
-
-  const [userTime, setUserTime] = useState("")
-
-  const [buttonText, setButtonText] = useState("Get Early Access")
-  const [marketerId, setMarketerId] = useState("")
-  const [referrerId, setreferrerId] = useState("")
+const SectionB = (props) => {
 
 
-  const [refId, setRefId] = useState("")
+//   function detectBrowser() {
+//     const browserArray = [
+//       "Chrome",
+//       "Firefox",
+//       "Safari",
+//       "Opera",
+//       "MSIE",
+//       "Trident",
+//       "Edge",
+//     ]
 
-  function detectBrowser() {
-    const browserArray = [
-      "Chrome",
-      "Firefox",
-      "Safari",
-      "Opera",
-      "MSIE",
-      "Trident",
-      "Edge",
-    ]
+//     let browserDetail,
+//       navigatorString = navigator.userAgent
 
-    let browserDetail,
-      navigatorString = navigator.userAgent
+//     for (let i = 0; i < browserArray.length; i++) {
+//       if (navigatorString.indexOf(browserArray[i]) > -1) {
+//         browserDetail = browserArray[i]
+//         // setBrowser(browserDetail)
 
-    for (let i = 0; i < browserArray.length; i++) {
-      if (navigatorString.indexOf(browserArray[i]) > -1) {
-        browserDetail = browserArray[i]
-        // setBrowser(browserDetail)
-
-        break
-      }
-    }
-  }
+//         break
+//       }
+//     }
+//   }
 
   // To check if the caseid is stored in the local storage. if no, get the browser details with the ip-api
 
-  useEffect(() => {
-    const urlFromLocation = window.location.href
-
-    const newURL = new URL(urlFromLocation)
-
-    console.log(newURL.searchParams.has("marketerId"))
-
-    let marketerIdFromLocation;
-    
-    let referrerIdFromLocation;
-
-    if (newURL.searchParams.has("marketerId")) {
-         marketerIdFromLocation = newURL.searchParams.get("marketerId").toString()
-        console.log(marketerIdFromLocation);
-        setMarketerId(marketerIdFromLocation)
-      } 
-
-      if (newURL.searchParams.has("referrer")) {
-        referrerIdFromLocation = newURL.searchParams.get("referrerId").toString()
-       console.log(referrerIdFromLocation);
-       setreferrerId(referrerIdFromLocation)
-     } 
-
-    const currentTime = new Date().toString()
-
-    const myStorage = window.localStorage
-    const caseIDFromLocalStorage = myStorage.getItem("caseID")
-
-    const dataFromLocalStorage = myStorage.getItem("dataFromLocalStorage")
-
-    let ParsedBrowserWithQuotes
-
-    if (!caseIDFromLocalStorage || !dataFromLocalStorage) {
-      const caseIDValue = Math.floor(Math.random() * 2).toString()
-
-      myStorage.setItem("caseID", caseIDValue)
-      setCaseID(caseIDValue)
-
-      var endpoint =
-        "http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
-
-      var xhr = new XMLHttpRequest()
-
-      xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          let response = JSON.parse(this.responseText)
-
-          console.log("response", response)
-
-          const userDetaisFromIpAPI = JSON.stringify(response);
-          console.log("userDetaisFromIpAPI", userDetaisFromIpAPI)
-          
-
-        
-          const parsedBrowserDetails = userDetaisFromIpAPI.replace(/"/g, '\\"');
-
-          console.log("parsedBrowserDetails", parsedBrowserDetails);
-
-          ParsedBrowserWithQuotes = '"' + parsedBrowserDetails +'"';
-
-
-          setBrowser(ParsedBrowserWithQuotes);
-
-
-          myStorage.setItem("dataFromLocalStorage", ParsedBrowserWithQuotes)
-
-        client()
-        .hydrated()
-        .then(function(cl) {
-          console.log(cl)
-
-        cl.mutate({
-            mutation: createdVisitor,
-            variables: {
-
-                referrer: referrerId,
-                marketerId: marketerIdFromLocation,
-            browserDetails: ParsedBrowserWithQuotes,
-            time: currentTime,
-             },
-              fetchPolicy: "no-cache",
-            })
-           .then(result => {
-
-                console.log("result appsync", result)
-              })
-              .catch(err => {
-                console.log(err)
-              })
-          })
-          .catch(err => {
-            console.log(err)
-          })
-
-
-          if (response.status !== "success") {
-            console.log("query failed: " + response.message)
-            return
-          }
-
-          
-        }
-      }
-
-      xhr.open("GET", endpoint, true)
-      xhr.send();
-
-    } else {
-      setCaseID(caseIDFromLocalStorage)
-      setBrowser(dataFromLocalStorage)
-    }
-    detectBrowser()
-  }, [])
-
-  const [email, setEmail] = useState("")
-  const [emailError, setEmailError] = useState(false)
-
-  const validateAndCheckOut = () => {
-    let regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim
-
-    if (email !== "" && regex.test(email)) {
-      setButtonText("Adding to waiting list...")
-
-      
-    const referralId = Math.random()
-    .toString(36)
-    .slice(-6)
-
-  setRefId(referralId)
-
-
-      const currentTime = new Date().toString()
-
-      client()
-      .hydrated()
-      .then(function(cl) {
-        console.log(cl)
-
-      cl.mutate({
-          mutation: createdUser,
-          variables: {
-          email: email,
-      referralCode: referralId,
-          case: caseID,
-          device: "bigscreen",
-          browserDetails: browser,
-          time: currentTime,
-           },
-            fetchPolicy: "no-cache",
-          })
-         .then(result => {
-
-              console.log("result appsync", result)
-
-              setTimeout(() => {
-                navigate("/th", {
-                  state: {
-        refId: referralId,
-                    device: "bigscreen",
-                  },
-                })
-              }, 400)
-            })
-            .catch(err => {
-              console.log(err)
-            })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
-      console.log(browser)
-
-      setTimeout(() => {
-        navigate("/th", {
-          state: {
-            refId: referralId,
-            device: "bigscreen",
-          },
-        })
-      }, 400)
-    } else {
-      console.log("invalid")
-      setEmailError(true)
-      setTimeout(() => {
-        setEmailError(false)
-      }, 2000)
-    }
-  }
-
+  
   let alertBox = null
 
-  if (emailError) {
+  if (props.emailError) {
     alertBox = (
       <div class="bg-indigo-900 text-center py-3 lg:px-4  z-20 alertBox">
         <div
@@ -306,9 +54,7 @@ const SectionB = () => {
           </span>
           <div
             class=" cursor-pointer px-2 py-1"
-            onClick={() => {
-              setEmailError(false)
-            }}
+            onClick={props.toggleEmail}
           >
             X
           </div>
@@ -329,7 +75,7 @@ const SectionB = () => {
     </div>
   )
 
-  if (caseID === 0) {
+  if (props.caseID === 0) {
     descriptionBlock = (
       <div>
         <p class="lg:text-6xl md:text-5xl leading-normal text-white sm: text-2xl text-center font-serif">
@@ -375,7 +121,7 @@ const SectionB = () => {
               <form
                 onSubmit={e => {
                   e.preventDefault()
-                  validateAndCheckOut()
+                  props.validateAndCheckOut()
                 }}
               >
                 <div class="flex lg:flex-row mt-5 lg:w-full lg:justify-center sm: flex-col sm: w-5/6 sm: m-auto">
@@ -383,20 +129,14 @@ const SectionB = () => {
                     type="email"
                     placeholder="Enter your email"
                     class="lg:w-8/12 lg:mr-2 lg:pb-1 pl-5 lg:m-0 h-10 text-gray-800 lg:text-xl lg:text-left md:text-left md:w-10/12 sm: mb-5 sm: w-full sm: m-auto sm: text-center lg:rounded-sm sm: rounded-md"
-                    onChange={event => {
-                      setEmail(event.target.value)
-                      console.log(email)
-                    }}
-                    onClick={() => {
-                      setEmailError(false)
-                    }}
+                    onChange={props.emailCollector}
+                    onClick={props.toggleEmail}
                   />
 
                   <div
                     role="button"
-                    onClick={() => {
-                      validateAndCheckOut()
-                    }}
+                    onClick={()=>{props.validateAndCheckOut("bigScreen")}}
+
                     class="cursor-pointer lg:m-0 xl:5/12 lg:w-6/12 lg:rounded-sm md:w-7/12  h-10 py-2 px-1 flex flex-row justify-center sm: w-9/12 sm: rounded-md sm: m-auto headerButton"
                   >
                     <img
@@ -404,7 +144,7 @@ const SectionB = () => {
                       class="w-8 mr-2"
                       alt="get early access"
                     />
-                    <p class="lg:text-base pr-2">{buttonText}</p>
+                    <p class="lg:text-base pr-2">{props.buttonText}</p>
                   </div>
                 </div>
               </form>
