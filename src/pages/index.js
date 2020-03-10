@@ -8,13 +8,15 @@ import { Helmet } from "react-helmet"
 import client from "../../appsync"
 import { navigate } from "gatsby"
 
+
 const gql = require("graphql-tag")
+
+const appsyncFunc = client();
+
 
 
 
 const IndexPage = () => {
-
-let appsyncFunc = client();
 
 const createdUser = gql`
     mutation createUser(
@@ -41,25 +43,25 @@ const createdUser = gql`
     }
   `
 
-//   const createdVisitor = gql`
-//     mutation createVisitor(
-//       $referrer: String
-//       $marketerId: String
-//       $browserDetails: AWSJSON
-//       $time: String
-//     ) {
-//       createVisitor(
-//         input: {
-//           referrer: $referrer
-//           marketerId: $marketerId
-//           browserDetails: $browserDetails
-//           time: $time
-//         }
-//       ) {
-//         id
-//       }
-//     }
-//   `
+  const createdVisitor = gql`
+    mutation createVisitor(
+      $referrer: String
+      $marketerId: String
+      $browserDetails: AWSJSON
+      $time: String
+    ) {
+      createVisitor(
+        input: {
+          referrer: $referrer
+          marketerId: $marketerId
+          browserDetails: $browserDetails
+          time: $time
+        }
+      ) {
+        id
+      }
+    }
+  `
 
 const [caseID, setCaseID] = useState("")
 
@@ -69,9 +71,11 @@ const [browser, setBrowser] = useState("unable to define")
 
 const [userTime, setUserTime] = useState("")
 
-const [buttonText, setButtonText] = useState("Get Early Access")
-const [marketerId, setMarketerId] = useState("")
-const [referrerId, setreferrerId] = useState("")
+const [buttonText, setButtonText] = useState("Join the waiting List")
+
+const [marketerId, setMarketerId] = useState("none")
+const [referrerId, setreferrerId] = useState("none")
+
 const [email, setEmail] = useState("")
 const [emailError, setEmailError] = useState(false)
 const [refId, setRefId] = useState("")
@@ -143,33 +147,32 @@ useEffect(() => {
 
           myStorage.setItem("dataFromLocalStorage", ParsedBrowserWithQuotes)
 
-        // appsyncFunc
-        // .hydrated()
-        // .then(function(cl) {
-        //   console.log(cl)
+        appsyncFunc
+        .hydrated()
+        .then(function(cl) {
+          console.log(cl)
 
-        // cl.mutate({
-        //     mutation: createdVisitor,
-        //     variables: {
+        cl.mutate({
+            mutation: createdVisitor,
+            variables: {
+                referrer: referrerId,
+                marketerId: marketerId,
+            browserDetails: ParsedBrowserWithQuotes,
+            time: currentTime,
+             },
+              fetchPolicy: "no-cache",
+            })
+           .then(result => {
 
-        //         referrer: referrerId,
-        //         marketerId: marketerIdFromLocation,
-        //     browserDetails: ParsedBrowserWithQuotes,
-        //     time: currentTime,
-        //      },
-        //       fetchPolicy: "no-cache",
-        //     })
-        //    .then(result => {
-
-        //         console.log("result appsync", result)
-        //       })
-        //       .catch(err => {
-        //         console.log(err)
-        //       })
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
+                console.log("result appsync", result)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          .catch(err => {
+            console.log(err)
+          })
 
 
           if (response.status !== "success") {
@@ -212,43 +215,43 @@ useEffect(() => {
 
     const currentTime = new Date().toString()
 
-    //   appsyncFunc
-    //   .hydrated()
-    //   .then(function(cl) {
-    //     console.log(cl)
+      appsyncFunc
+      .hydrated()
+      .then(function(cl) {
+        console.log(cl)
 
-    //   cl.mutate({
-    //       mutation: createdUser,
-    //       variables: {
-    //       email: email,
-    //   referralCode: referralId,
-    //       case: caseID,
-    //       device: "bigscreen",
-    //       browserDetails: browser,
-    //       time: currentTime,
-    //        },
-    //         fetchPolicy: "no-cache",
-    //       })
-    //      .then(result => {
+      cl.mutate({
+          mutation: createdUser,
+          variables: {
+          email: email,
+      referralCode: referralId,
+          case: caseID,
+          device:deviceVal,
+          browserDetails: browser,
+          time: currentTime,
+           },
+            fetchPolicy: "no-cache",
+          })
+         .then(result => {
 
-    //           console.log("result appsync", <resul></resul>t)
+              console.log("result appsync", <resul></resul>)
 
-    //           setTimeout(() => {
-    //             navigate("/th", {
-    //               state: {
-    //     refId: referralId,
-    //                 device: "bigscreen",
-    //               },
-    //             })
-    //           }, 400)
-    //         })
-    //         .catch(err => {
-    //           console.log(err)
-    //         })
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
+              setTimeout(() => {
+                navigate("/th", {
+                  state: {
+        refId: referralId,
+                    device: "bigscreen",
+                  },
+                })
+              }, 400)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(err => {
+          console.log(err)
+        })
 
       console.log(browser)
 

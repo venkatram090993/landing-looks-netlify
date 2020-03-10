@@ -129,7 +129,7 @@ const Rewards = (props) => {
   }
 
   return (
-    <div class="container">
+    <div class="container lg:hidden md:hidden sm: block">
       <div class=" h-screen flex flex-row">
         <div class="relative" onClick={closeBottomSheet}>
           {showRefURLComp}

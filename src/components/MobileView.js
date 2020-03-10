@@ -98,7 +98,7 @@ let alertBox = null
                 }}
               >
                 <img src={sendImg} class="w-8 mr-1 " />
-                <p class="lg:text-base pr-2 text-white">Get Early Access</p>
+                <p class="lg:text-base pr-2 text-white">Join the waiting list</p>
               </div>
             )}
           </div>
