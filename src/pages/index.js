@@ -284,6 +284,9 @@ useEffect(() => {
 
 
 
+  if (typeof window === "undefined") {
+    return <></>
+  }
 
 
     return(
