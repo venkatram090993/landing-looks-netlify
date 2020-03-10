@@ -119,7 +119,7 @@ useEffect(() => {
       setCaseID(caseIDValue)
 
       var endpoint =
-        "http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
+        "https://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
 
       var xhr = new XMLHttpRequest()
 
