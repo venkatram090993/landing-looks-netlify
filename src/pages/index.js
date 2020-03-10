@@ -8,7 +8,6 @@ import { Helmet } from "react-helmet"
 import client from "../../appsync"
 import { navigate } from "gatsby"
 
-
 const gql = require("graphql-tag")
 
 const appsyncFunc = client();
