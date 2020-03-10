@@ -118,8 +118,10 @@ useEffect(() => {
       myStorage.setItem("caseID", caseIDValue)
       setCaseID(caseIDValue)
 
-      var endpoint =
-        "https://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
+    //   var endpoint =
+    //     "http://ip-api.com/json/?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,query"
+
+        var endpoint = "https://api.ipgeolocation.io/ipgeo?apiKey=3bca06d35d2b4a2399833d9ba2e0cff6"
 
       var xhr = new XMLHttpRequest()
 
@@ -139,6 +141,8 @@ useEffect(() => {
           console.log("parsedBrowserDetails", parsedBrowserDetails);
 
           ParsedBrowserWithQuotes = '"' + parsedBrowserDetails +'"';
+
+          console.log(ParsedBrowserWithQuotes)
 
 
           setBrowser(ParsedBrowserWithQuotes);
